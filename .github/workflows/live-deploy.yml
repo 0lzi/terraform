@@ -1,0 +1,125 @@
+# Workflow to use terraform to create receptor nodes in openstack
+name: Deploy to LI
+
+on:
+  push:
+    branches:
+      - main
+
+#  pull_request:
+#    types: ["opened", "reopened", "synchronize"]
+
+env:
+  OS_AUTH_URL: ${{ secrets.OS_AUTH_URL }}
+  OS_REGION_NAME: ${{ secrets.OS_REGION_NAME }}
+  OS_USER_DOMAIN_NAME: ${{ secrets.OS_USER_DOMAIN_NAME }}]
+  OS_APPLICATION_CREDENTIAL_ID: ${{secrets.OS_APPLICATION_CREDENTIAL_ID }}
+  OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
+  OS_AUTH_TYPE: ${{ secrets.OS_AUTH_TYPE }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+
+jobs:
+  deploy:
+    runs-on: [ self-hosted ] # Centos
+    environment: LI
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Terraform
+      run: |
+        # sudo yum install -y wget unzip
+        wget https://releases.hashicorp.com/terraform/1.3.7/terraform_1.3.7_linux_amd64.zip
+        unzip terraform_1.3.7_linux_amd64.zip 
+        sudo mv terraform /usr/local/bin/
+
+    - name: Check formatting
+      id: fmt
+      run: terraform fmt -check -recursive -diff
+
+    - name: Initialize Terraform
+      id: init
+      run: terraform init
+
+    - name: Plan Terraform Validate
+      id: validate
+      run: terraform validate
+    
+    - name: Terraform plan
+      id: plan
+      run: |
+        terraform plan -no-color -out=plan.tmp
+        terraform show -no-color plan.tmp > ${GITHUB_WORKSPACE}/plan.out
+      continue-on-error: true
+
+    - name: Terrafom show plan in MR
+      uses: actions/github-script@v6
+      if: github.event_name == 'pull_request'
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          // Retrieve existing bot comments for the PR
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          })
+          const botComment = comments.find(comment => {
+            return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
+          })
+          // Prepare format of the comment
+          const run_url = process.env.GITHUB_SERVER_URL + '/' + process.env.GITHUB_REPOSITORY + '/actions/runs/' + process.env.GITHUB_RUN_ID
+          const run_link = '<a href="' + run_url + '">Actions</a>.'
+          const fs = require('fs')
+          const plan_file = fs.readFileSync('plan.out', 'utf8')
+          const plan = plan_file.length > 65000 ? plan_file.toString().substring(0, 65000) + " ..." : plan_file
+          const truncated_message = plan_file.length > 65000 ? "Output is too long and was truncated. You can read full Plan in " + run_link + "<br /><br />" : ""
+          const output = `#### Terraform Format and Style \`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization \`${{ steps.init.outcome }}\`
+          #### Terraform Validation \`${{ steps.validate.outcome }}\`
+          #### Terraform Plan \`${{ steps.plan.outcome }}\`
+
+          <details><summary>Show validation</summary>
+
+          \`\`\`\n
+          ${{steps.validate.outputs.stdout}}
+          \`\`\`\n
+
+          </details>
+
+          <details><summary>Show Plan</summary>
+
+          \`\`\`\n
+          ${plan}
+          \`\`\`
+
+          </details>
+          ${truncated_message}
+
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ github.workspace }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+          // If we have a comment, update it, otherwise create a new one
+          if (botComment) {
+            github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: output
+            })
+          } else {
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+          }
+          
+    - name: Terraform Plan Status
+      if: steps.plan.outcome == 'failure'
+      run: exit 1
+    - name: Terraform Apply
+      id: apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
