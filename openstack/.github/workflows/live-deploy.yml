@@ -12,7 +12,7 @@ on:
 env:
   OS_AUTH_URL: ${{ secrets.OS_AUTH_URL }}
   OS_REGION_NAME: ${{ secrets.OS_REGION_NAME }}
-  OS_USER_DOMAIN_NAME: ${{ secrets.OS_USER_DOMAIN_NAME }}]
+  OS_USER_DOMAIN_NAME: ${{ secrets.OS_USER_DOMAIN_NAME }}
   OS_APPLICATION_CREDENTIAL_ID: ${{secrets.OS_APPLICATION_CREDENTIAL_ID }}
   OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
   OS_AUTH_TYPE: ${{ secrets.OS_AUTH_TYPE }}
@@ -23,7 +23,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: [ self-hosted ] # Centos
+    runs-on: [ self-hosted ] 
     environment: LI
     steps:
     - uses: actions/checkout@v3
