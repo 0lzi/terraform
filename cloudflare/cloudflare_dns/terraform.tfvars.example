@@ -1,0 +1,17 @@
+records = {
+  "dashboard" = {
+    name    = "example.com"
+    value   = "1.2.3.4"
+
+  },
+  "example-record-2" = {
+    name    = "www.example.com"
+    value   = "1.2.3.4"
+
+  }
+  # add more records as needed
+}
+
+cloudflare_zone_name = "example.com"
+cloudflare_email = "example@email.com"
+cloudflare_api_token = "apikeyhere"
