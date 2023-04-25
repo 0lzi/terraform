@@ -1,5 +1,5 @@
 records = {
-  "dashboard" = {
+  "example-record-1" = {
     name    = "example.com"
     value   = "1.2.3.4"
 
