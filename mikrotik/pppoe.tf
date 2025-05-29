@@ -6,7 +6,7 @@ resource "routeros_interface_pppoe_client" "pnet" {
   name              = "pppoe-out1"
   comment           = "PlusNet"
   add_default_route = true
-  use_peer_dns      = true
+  use_peer_dns      = false
   dial_on_demand    = true
   profile           = "default-encryption"
   password          = var.pppoe_password
