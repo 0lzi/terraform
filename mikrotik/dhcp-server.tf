@@ -9,16 +9,16 @@ resource "routeros_ip_pool" "mgmt" {
 
 resource "routeros_ip_dhcp_server_network" "mgmt" {
   address    = "10.18.10.0/24"
-  comment    = "MGMT"
+  comment    = routeros_ip_pool.mgmt.comment
   gateway    = "10.18.10.1"
   dns_server = ["10.18.10.1"]
   domain     = "0lzi.internal"
 }
 
 resource "routeros_ip_dhcp_server" "mgmt" {
-  name         = "MGMT"
-  comment      = "MGMT"
-  address_pool = "MGMT"
+  name         = routeros_ip_pool.mgmt.name
+  comment      = routeros_ip_pool.mgmt.comment
+  address_pool = routeros_ip_pool.mgmt.name
   interface    = "vlan10"
 }
 
@@ -33,16 +33,16 @@ resource "routeros_ip_pool" "prod" {
 
 resource "routeros_ip_dhcp_server_network" "prod" {
   address    = "10.18.20.0/24"
-  comment    = "PROD"
+  comment    = routeros_ip_pool.prod.comment
   gateway    = "10.18.20.1"
   dns_server = ["10.18.20.1"]
   domain     = "0lzi.com"
 }
 
 resource "routeros_ip_dhcp_server" "prod" {
-  name         = "PROD"
-  comment      = "PROD"
-  address_pool = "PROD"
+  name         = routeros_ip_pool.prod.name
+  comment      = routeros_ip_pool.prod.comment
+  address_pool = routeros_ip_pool.prod.name
   interface    = "vlan20"
 }
 # =====================================
@@ -56,16 +56,16 @@ resource "routeros_ip_pool" "dev" {
 
 resource "routeros_ip_dhcp_server_network" "dev" {
   address    = "10.18.30.0/24"
-  comment    = "DEV"
+  comment      = routeros_ip_pool.dev.comment
   gateway    = "10.18.30.1"
   dns_server = ["10.18.30.1"]
   domain     = "0lzi.internal"
 }
 
 resource "routeros_ip_dhcp_server" "dev" {
-  name         = "DEV"
-  comment      = "DEV"
-  address_pool = "DEV"
+  name         = routeros_ip_pool.dev.name
+  comment      = routeros_ip_pool.dev.comment
+  address_pool = routeros_ip_pool.dev.name
   interface    = "vlan30"
 }
 # =====================================
@@ -74,20 +74,20 @@ resource "routeros_ip_dhcp_server" "dev" {
 resource "routeros_ip_pool" "iot" {
   name    = "IoT"
   comment = "IoT"
-  ranges  = ["10.18.10.40-10.18.40.150"]
+  ranges  = ["10.18.40.20-10.18.40.200"]
 }
 
 resource "routeros_ip_dhcp_server_network" "iot" {
   address    = "10.18.40.0/24"
-  comment    = "IoT"
+  comment      = routeros_ip_pool.iot.comment
   gateway    = "10.18.40.1"
   dns_server = ["10.18.40.1"]
 }
 
 resource "routeros_ip_dhcp_server" "iot" {
-  name         = "IoT"
-  comment      = "IoT"
-  address_pool = "IoT"
+  name         = routeros_ip_pool.iot.name
+  comment      = routeros_ip_pool.iot.comment
+  address_pool = routeros_ip_pool.iot.name
   interface    = "vlan40"
 }
 # =====================================
@@ -96,21 +96,21 @@ resource "routeros_ip_dhcp_server" "iot" {
 resource "routeros_ip_pool" "home" {
   name    = "HOME"
   comment = "HOME"
-  ranges  = ["10.18.50.20-10.18.50.50"]
+  ranges  = ["10.18.50.20-10.18.50.200"]
 }
 
 resource "routeros_ip_dhcp_server_network" "home" {
   address    = "10.18.50.0/24"
-  comment    = "HOME"
+  comment      = routeros_ip_pool.home.comment
   gateway    = "10.18.50.1"
   dns_server = ["10.18.50.1"]
   domain     = "internal"
 }
 
 resource "routeros_ip_dhcp_server" "home" {
-  name         = "HOME"
-  comment      = "HOME"
-  address_pool = "HOME"
+  name         = routeros_ip_pool.home.name
+  comment      = routeros_ip_pool.home.comment
+  address_pool = routeros_ip_pool.home.name
   interface    = "vlan50"
 }
 # =====================================
@@ -119,19 +119,19 @@ resource "routeros_ip_dhcp_server" "home" {
 resource "routeros_ip_pool" "guest" {
   name    = "Guest"
   comment = "Guest"
-  ranges  = ["192.168.100.2-192.168.100.250"]
+  ranges  = ["192.168.100.20-192.168.100.200"]
 }
 
 resource "routeros_ip_dhcp_server_network" "guest" {
   address    = "192.168.100.0/24"
-  comment    = "Guest"
+  comment      = routeros_ip_pool.guest.comment
   gateway    = "192.168.100.1"
   dns_server = ["8.8.8.8", "1.1.1.1"]
 }
 
 resource "routeros_ip_dhcp_server" "guest" {
-  name         = "Guest"
-  comment      = "Guest"
-  address_pool = "Guest"
+  name         = routeros_ip_pool.guest.name
+  comment      = routeros_ip_pool.guest.comment
+  address_pool = routeros_ip_pool.guest.name
   interface    = "vlan100"
 }

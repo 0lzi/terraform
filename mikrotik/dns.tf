@@ -4,6 +4,8 @@
 resource "routeros_dns" "dns-server" {
   allow_remote_requests = true
   servers = [ "1.1.1.1", "8.8.8.8" ]
+  cache_size = 40000
+  max_concurrent_queries = 200
 }
 
 # =====================================
