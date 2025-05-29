@@ -1,3 +1,6 @@
+# ==================================================================
+# VLAN interfaces
+# ==================================================================
 resource "routeros_interface_vlan" "interface_vlan" {
    for_each = {
     "vlan10"       = { comment = "MGMT"  , vlan_id = 10  , interface = "bridge" }

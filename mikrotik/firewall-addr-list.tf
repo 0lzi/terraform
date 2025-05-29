@@ -1,3 +1,7 @@
+# ==================================================================
+# Firewall Address List RFC1918
+# ==================================================================
+
 resource "routeros_ip_firewall_addr_list" "rfc1918" {
    for_each = {
     "1"       = { address = "192.168.0.0/16" , list = "RFC1918" }
@@ -8,12 +12,18 @@ resource "routeros_ip_firewall_addr_list" "rfc1918" {
   list    = each.value.list
   comment = each.value.list
 }
+# ==================================================================
+# Firewall Address List WAN
+# ==================================================================
 
 resource "routeros_ip_firewall_addr_list" "wan" {
   address = var.wan_address
   list    = "WAN"
   comment = "WAN"
 }
+# ==================================================================
+# Firewall Address List LAN
+# ==================================================================
 
 resource "routeros_ip_firewall_addr_list" "lan" {
    for_each = {

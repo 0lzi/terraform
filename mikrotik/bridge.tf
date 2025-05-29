@@ -1,3 +1,6 @@
+# ==================================================================
+# Bridge and bridge_port setup
+# ==================================================================
 resource "routeros_interface_bridge" "bridge" {
   name           = "bridge1"
   admin_mac      = "E6:60:B9:7E:E3:56"
