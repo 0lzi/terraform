@@ -28,3 +28,14 @@ variable "wan_address" {
   description = "WAN addres"
 }
 
+variable "pppoe_username" {
+  type        = string
+  sensitive   = true
+  description = "The PPPoE username."
+}
+variable "pppoe_password" {
+  type        = string
+  sensitive   = true
+  description = "The PPPoE password."
+}
+

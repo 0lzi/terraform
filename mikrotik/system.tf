@@ -1,0 +1,8 @@
+resource "routeros_system_identity" "identity" {
+  name = "Mikrotik"
+}
+resource "routeros_system_clock" "timezone" {
+  time_zone_name       = "Europe/London"
+  time_zone_autodetect = true
+}
+
