@@ -19,12 +19,12 @@ resource "routeros_system_certificate" "local-root-ca-cert" {
 # ===================================
 # CERTIFICATES
 # ===================================
-resource "routeros_system_certificate" "webfig" {
-  name        = "webfig"
-  common_name = "10.18.10.1"
-
+resource "routeros_system_certificate" "webfig_1" {
+  name        = "Webfig"
+  common_name = "Mikrotik"
+  subject_alt_name = "DNS:mikrotik.0lzi.internal,IP:10.18.10.1"
   country      = "GB"
-  organization = "0lzi"
+  organization = "0lzi.com"
   unit         = "HOME"
   days_valid   = 3650
 

@@ -24,6 +24,6 @@ resource "routeros_ip_service" "ssl" {
   numbers     = each.key
   port        = each.value
   tls_version = "only-1.2"
-  certificate = routeros_system_certificate.webfig.name
+  certificate = routeros_system_certificate.webfig_1.name
 }
 

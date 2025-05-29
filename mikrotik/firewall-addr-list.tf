@@ -12,6 +12,7 @@ resource "routeros_ip_firewall_addr_list" "rfc1918" {
   list    = each.value.list
   comment = each.value.list
 }
+
 # ==================================================================
 # Firewall Address List WAN
 # ==================================================================
@@ -21,6 +22,7 @@ resource "routeros_ip_firewall_addr_list" "wan" {
   list    = "WAN"
   comment = "WAN"
 }
+
 # ==================================================================
 # Firewall Address List LAN
 # ==================================================================
