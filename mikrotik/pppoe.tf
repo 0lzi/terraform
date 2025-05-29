@@ -1,3 +1,6 @@
+# ===========================================
+# PPPOE Client for Internet
+# ===========================================
 resource "routeros_interface_pppoe_client" "pnet" {
   interface         = "ether7"
   name              = "pppoe-out1"

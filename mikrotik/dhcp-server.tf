@@ -11,7 +11,8 @@ resource "routeros_ip_dhcp_server_network" "mgmt" {
   address    = "10.18.10.0/24"
   comment    = "MGMT"
   gateway    = "10.18.10.1"
-  dns_server = ["10.18.20.21", "10.18.20.20"]
+  dns_server = ["10.18.10.1"]
+  domain     = "0lzi.internal"
 }
 
 resource "routeros_ip_dhcp_server" "mgmt" {
@@ -34,7 +35,8 @@ resource "routeros_ip_dhcp_server_network" "prod" {
   address    = "10.18.20.0/24"
   comment    = "PROD"
   gateway    = "10.18.20.1"
-  dns_server = ["10.18.20.21", "10.18.20.20"]
+  dns_server = ["10.18.20.1"]
+  domain     = "0lzi.com"
 }
 
 resource "routeros_ip_dhcp_server" "prod" {
@@ -56,7 +58,8 @@ resource "routeros_ip_dhcp_server_network" "dev" {
   address    = "10.18.30.0/24"
   comment    = "DEV"
   gateway    = "10.18.30.1"
-  dns_server = ["8.8.8.8", "1.1.1.1"]
+  dns_server = ["10.18.30.1"]
+  domain     = "0lzi.internal"
 }
 
 resource "routeros_ip_dhcp_server" "dev" {
@@ -78,7 +81,7 @@ resource "routeros_ip_dhcp_server_network" "iot" {
   address    = "10.18.40.0/24"
   comment    = "IoT"
   gateway    = "10.18.40.1"
-  dns_server = ["8.8.8.8", "1.1.1.1"]
+  dns_server = ["10.18.40.1"]
 }
 
 resource "routeros_ip_dhcp_server" "iot" {
@@ -100,7 +103,8 @@ resource "routeros_ip_dhcp_server_network" "home" {
   address    = "10.18.50.0/24"
   comment    = "HOME"
   gateway    = "10.18.50.1"
-  dns_server = ["8.8.8.8", "1.1.1.1"]
+  dns_server = ["10.18.50.1"]
+  domain     = "internal"
 }
 
 resource "routeros_ip_dhcp_server" "home" {
