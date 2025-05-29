@@ -2,8 +2,9 @@
 # Bridge and bridge_port setup
 # ==================================================================
 resource "routeros_interface_bridge" "bridge" {
-  name           = "bridge1"
-  admin_mac      = "E6:60:B9:7E:E3:56"
+  name           = "bridge"
+  comment        = "defconf"
+  admin_mac      = "D4:01:C3:0B:64:30"
   vlan_filtering = true
   auto_mac       = false
   pvid           = "1"
