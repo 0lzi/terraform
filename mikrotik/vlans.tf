@@ -15,3 +15,90 @@ resource "routeros_interface_vlan" "interface_vlan" {
   comment   = each.value.comment
   vlan_id   = each.value.vlan_id
 }
+
+# ==================================================================
+# Bridge VLANs
+# ==================================================================
+resource "routeros_interface_bridge_vlan" "mgmt_vlan" {
+  comment = "MGMT"
+  bridge   = "bridge"
+  vlan_ids = ["10"]
+  tagged = [
+    "bridge",
+    "ether1",
+    "ether2",
+    "ether3",
+    "ether5",
+    "ether6"
+  ]
+}
+
+resource "routeros_interface_bridge_vlan" "prod_vlan" {
+  comment = "PROD"
+  bridge   = "bridge"
+  vlan_ids = ["20"]
+  tagged = [
+    "bridge",
+    "ether1",
+    "ether2",
+    "ether3",
+    "ether5",
+    "ether6"
+  ]
+}
+
+resource "routeros_interface_bridge_vlan" "dev_vlan" {
+  comment = "DEV"
+  bridge   = "bridge"
+  vlan_ids = ["30"]
+  tagged = [
+    "bridge",
+    "ether1",
+    "ether2",
+    "ether3",
+    "ether5",
+    "ether6"
+  ]
+}
+
+resource "routeros_interface_bridge_vlan" "iot_vlan" {
+  comment = "IoT"
+  bridge   = "bridge"
+  vlan_ids = ["40"]
+  tagged = [
+    "bridge",
+    "ether1",
+    "ether2",
+    "ether3",
+    "ether5",
+    "ether6"
+  ]
+}
+
+resource "routeros_interface_bridge_vlan" "home_vlan" {
+  comment = "HOME"
+  bridge   = "bridge"
+  vlan_ids = ["50"]
+  tagged = [
+    "bridge",
+    "ether1",
+    "ether2",
+    "ether3",
+    "ether5",
+    "ether6"
+  ]
+}
+
+resource "routeros_interface_bridge_vlan" "guest_vlan" {
+  comment = "Guest"
+  bridge   = "bridge"
+  vlan_ids = ["100"]
+  tagged = [
+    "bridge",
+    "ether1",
+    "ether2",
+    "ether3",
+    "ether5",
+    "ether6"
+  ]
+}
