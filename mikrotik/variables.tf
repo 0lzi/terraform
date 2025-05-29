@@ -44,4 +44,3 @@ variable "pppoe_password" {
   sensitive   = true
   description = "The PPPoE password."
 }
-

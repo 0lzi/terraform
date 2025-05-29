@@ -90,6 +90,7 @@ resource "routeros_ip_dhcp_server" "iot" {
   address_pool = routeros_ip_pool.iot.name
   interface    = "vlan40"
 }
+
 # =====================================
 # HOME DHCP
 # =====================================
@@ -113,6 +114,7 @@ resource "routeros_ip_dhcp_server" "home" {
   address_pool = routeros_ip_pool.home.name
   interface    = "vlan50"
 }
+
 # =====================================
 # GUEST DHCP
 # =====================================
