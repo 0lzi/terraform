@@ -56,7 +56,7 @@ resource "routeros_ip_dhcp_server_network" "dev" {
   address    = "10.18.30.0/24"
   comment    = "DEV"
   gateway    = "10.18.30.1"
-  dns_server = ["10.18.20.21", "10.18.20.20"]
+  dns_server = ["8.8.8.8", "1.1.1.1"]
 }
 
 resource "routeros_ip_dhcp_server" "dev" {
