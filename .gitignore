@@ -12,3 +12,7 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# Direnv
+.direnv
+.envrc
