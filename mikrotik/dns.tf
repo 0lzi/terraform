@@ -93,6 +93,7 @@ resource "routeros_ip_dns_adlist" "dns-blocklist" {
   url        = "https://raw.githubusercontent.com/hagezi/dns-blocklists/refs/heads/main/hosts/pro.txt"
   ssl_verify = false
 }
+
 # =====================================
 # DNS Entries
 # =====================================
@@ -104,7 +105,7 @@ resource "routeros_ip_dns_record" "pi_hole_1" {
 }
 
 resource "routeros_ip_dns_record" "pi_hole_2" {
-  name    = "pi-hole-1.0lzi.com"
+  name    = "pi-hole-2.0lzi.com"
   address = routeros_ip_dhcp_server_lease.pi_hole_2.address
   type    = "A"
 }
@@ -136,5 +137,17 @@ resource "routeros_ip_dns_record" "pve_2" {
 resource "routeros_ip_dns_record" "pve_3" {
   name    = "pve3.0lzi.com"
   address = "10.18.10.12"
+  type    = "A"
+}
+
+resource "routeros_ip_dns_record" "mikrotik" {
+  name    = "mikrotik.0lzi.internal"
+  address = "10.18.10.1"
+  type    = "A"
+}
+
+resource "routeros_ip_dns_record" "ap_01" {
+  name    = "ap-01.0lzi.internal"
+  address = "10.18.10.2"
   type    = "A"
 }
