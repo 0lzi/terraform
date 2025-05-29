@@ -22,3 +22,9 @@ variable "mikrotik_insecure" {
   description = "Whether to allow insecure connections to the MikroTik device."
 }
 
+variable "wan_address" {
+  type        = string
+  sensitive   = true
+  description = "WAN addres"
+}
+
