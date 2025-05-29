@@ -14,3 +14,18 @@ resource "routeros_ip_firewall_addr_list" "wan" {
   list    = "WAN"
   comment = "WAN"
 }
+
+resource "routeros_ip_firewall_addr_list" "lan" {
+   for_each = {
+    "vlan10"       = { address = routeros_ip_dhcp_server_network.mgmt.address , list = "MGMT" }
+    "vlan20"       = { address = routeros_ip_dhcp_server_network.prod.address , list = "PROD" }
+    "vlan30"       = { address = routeros_ip_dhcp_server_network.dev.address  , list = "DEV" }
+    "vlan40"       = { address = routeros_ip_dhcp_server_network.iot.address  , list = "IOT" }
+    "vlan50"       = { address = routeros_ip_dhcp_server_network.home.address , list = "HOME" }
+    "vlan100"      = { address = routeros_ip_dhcp_server_network.guest.address, list = "GUEST" }
+  }
+  address = each.value.address
+  list    = each.value.list
+  comment = each.value.list
+}
+
