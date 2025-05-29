@@ -10,6 +10,12 @@ variable "mikrotik_username" {
   description = "The username for accessing the MikroTik device."
 }
 
+variable "user_password" {
+  type        = string
+  sensitive   = true
+  description = "The password for user"
+}
+
 variable "mikrotik_password" {
   type        = string
   sensitive   = true
