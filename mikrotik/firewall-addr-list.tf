@@ -40,4 +40,3 @@ resource "routeros_ip_firewall_addr_list" "lan" {
   list    = each.value.list
   comment = each.value.list
 }
-

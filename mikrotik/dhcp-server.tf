@@ -45,6 +45,7 @@ resource "routeros_ip_dhcp_server" "prod" {
   address_pool = routeros_ip_pool.prod.name
   interface    = "vlan20"
 }
+
 # =====================================
 # DEV DHCP
 # =====================================
@@ -56,7 +57,7 @@ resource "routeros_ip_pool" "dev" {
 
 resource "routeros_ip_dhcp_server_network" "dev" {
   address    = "10.18.30.0/24"
-  comment      = routeros_ip_pool.dev.comment
+  comment    = routeros_ip_pool.dev.comment
   gateway    = "10.18.30.1"
   dns_server = ["10.18.30.1"]
   domain     = "0lzi.internal"
@@ -68,6 +69,7 @@ resource "routeros_ip_dhcp_server" "dev" {
   address_pool = routeros_ip_pool.dev.name
   interface    = "vlan30"
 }
+
 # =====================================
 # IoT DHCP
 # =====================================
@@ -79,7 +81,7 @@ resource "routeros_ip_pool" "iot" {
 
 resource "routeros_ip_dhcp_server_network" "iot" {
   address    = "10.18.40.0/24"
-  comment      = routeros_ip_pool.iot.comment
+  comment    = routeros_ip_pool.iot.comment
   gateway    = "10.18.40.1"
   dns_server = ["10.18.40.1"]
 }
@@ -90,6 +92,7 @@ resource "routeros_ip_dhcp_server" "iot" {
   address_pool = routeros_ip_pool.iot.name
   interface    = "vlan40"
 }
+
 # =====================================
 # HOME DHCP
 # =====================================
@@ -101,7 +104,7 @@ resource "routeros_ip_pool" "home" {
 
 resource "routeros_ip_dhcp_server_network" "home" {
   address    = "10.18.50.0/24"
-  comment      = routeros_ip_pool.home.comment
+  comment    = routeros_ip_pool.home.comment
   gateway    = "10.18.50.1"
   dns_server = ["10.18.50.1"]
   domain     = "internal"
@@ -113,6 +116,7 @@ resource "routeros_ip_dhcp_server" "home" {
   address_pool = routeros_ip_pool.home.name
   interface    = "vlan50"
 }
+
 # =====================================
 # GUEST DHCP
 # =====================================
@@ -124,7 +128,7 @@ resource "routeros_ip_pool" "guest" {
 
 resource "routeros_ip_dhcp_server_network" "guest" {
   address    = "192.168.100.0/24"
-  comment      = routeros_ip_pool.guest.comment
+  comment    = routeros_ip_pool.guest.comment
   gateway    = "192.168.100.1"
   dns_server = ["8.8.8.8", "1.1.1.1"]
 }
