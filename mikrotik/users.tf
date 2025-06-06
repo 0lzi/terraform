@@ -3,7 +3,7 @@
 # ====================================
 resource "routeros_system_user" "terraform" {
   name     = "terraform"
-  address  = "10.18.10.0/24"
+  address  = "10.18.10.0/24,192.168.1.0/24"
   group    = "full"
   password = var.mikrotik_password
   comment  = "Terraform"
