@@ -76,6 +76,6 @@ resource "routeros_ip_dns_record" "mikrotik" {
 
 resource "routeros_ip_dns_record" "ap_01" {
   name    = "ap-01.0lzi.internal"
-    type    = "A"
   address = "10.18.10.2"
+  type    = "A"
 }

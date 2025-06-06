@@ -17,19 +17,11 @@ resource "routeros_ip_firewall_addr_list" "rfc1918" {
 # Firewall Address List WAN
 # ==================================================================
 
-# ==================================================================
-# Firewall Address List WAN
-# ==================================================================
-
 resource "routeros_ip_firewall_addr_list" "wan" {
   address = var.wan_address
   list    = "WAN"
   comment = "WAN"
 }
-
-# ==================================================================
-# Firewall Address List LAN
-# ==================================================================
 
 # ==================================================================
 # Firewall Address List LAN
