@@ -18,6 +18,13 @@ resource "routeros_ip_address" "mgmt" {
   comment   = "MGMT"
 }
 
+resource "routeros_ip_address" "mgmt-vrrp" {
+  address   = "10.18.10.254/24"
+  interface = "mgmt-vrrp"
+  network   = "10.18.10.0"
+  comment   = "mgmt"
+}
+
 # =====================================
 # PROD ADDRESS
 # =====================================
@@ -26,6 +33,14 @@ resource "routeros_ip_address" "prod" {
   interface = "vlan20"
   network   = "10.18.20.0"
   comment   = "PROD"
+}
+
+
+resource "routeros_ip_address" "prod-vrrp" {
+  address   = "10.18.20.254/24"
+  interface = "prod-vrrp"
+  network   = "10.18.20.0"
+  comment   = "prod"
 }
 
 # =====================================
@@ -38,6 +53,14 @@ resource "routeros_ip_address" "dev" {
   comment   = "DEV"
 }
 
+
+resource "routeros_ip_address" "dev-vrrp" {
+  address   = "10.18.30.254/24"
+  interface = "mgmt-vrrp"
+  network   = "10.18.30.0"
+  comment   = "dev"
+}
+
 # =====================================
 # IoT ADDRESS
 # =====================================
@@ -46,6 +69,14 @@ resource "routeros_ip_address" "iot" {
   interface = "vlan40"
   network   = "10.18.40.0"
   comment   = "IoT"
+}
+
+
+resource "routeros_ip_address" "iot-vrrp" {
+  address   = "10.18.40.254/24"
+  interface = "iot-vrrp"
+  network   = "10.18.40.0"
+  comment   = "iot"
 }
 
 # =====================================
@@ -58,6 +89,14 @@ resource "routeros_ip_address" "home" {
   comment   = "HOME"
 }
 
+
+resource "routeros_ip_address" "home-vrrp" {
+  address   = "10.18.50.254/24"
+  interface = "home-vrrp"
+  network   = "10.18.50.0"
+  comment   = "home"
+}
+
 # =====================================
 # Guest ADDRESS
 # =====================================
@@ -68,6 +107,14 @@ resource "routeros_ip_address" "guest" {
   comment   = "Guest"
 }
 
+
+resource "routeros_ip_address" "guest-vrrp" {
+  address   = "192.168.100.254/24"
+  interface = "guest-vrrp"
+  network   = "192.168.100.0"
+  comment   = "guest"
+}
+
 # =====================================
 # Wireguard ADDRESS
 # =====================================
@@ -76,4 +123,11 @@ resource "routeros_ip_address" "wireguard" {
   interface = "wireguard1"
   network   = "10.10.0.0"
   comment   = "Wireguard"
+}
+
+resource "routeros_ip_address" "wireguard-vrrp" {
+  address   = "10.10.0.254/24"
+  interface = "wireguard1"
+  network   = "10.10.0.0"
+  comment   = "wireguard-vrrp"
 }
