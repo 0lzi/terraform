@@ -50,6 +50,18 @@ resource "routeros_ip_dns_record" "docker_1" {
   type    = "A"
 }
 
+resource "routeros_ip_dns_record" "immich-prod" {
+  name    = "immich.0lzi.com"
+  address = routeros_ip_dhcp_server_lease.immich-prod.address
+  type    = "A"
+}
+
+resource "routeros_ip_dns_record" "immich-home" {
+  name    = "immich.internal"
+  address = routeros_ip_dhcp_server_lease.immich-home.address
+  type    = "A"
+}
+
 resource "routeros_ip_dns_record" "pve_1" {
   name    = "pve1.0lzi.com"
   address = "10.18.10.10"
