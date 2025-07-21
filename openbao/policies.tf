@@ -1,4 +1,4 @@
-data "vault_policy_document" "everyone" {
+data "vault_policy_document" "all" {
   rule {
     path         = "*"
     capabilities = ["create", "read", "update", "delete", "list"]
@@ -6,8 +6,8 @@ data "vault_policy_document" "everyone" {
   }
 }
 
-resource "vault_policy" "everyone" {
-  name   = "everyone policy"
+resource "vault_policy" "all" {
+  name   = "all"
   policy = data.vault_policy_document.everyone.hcl
 }
 
