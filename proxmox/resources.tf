@@ -44,6 +44,59 @@ locals {
 
 }
 
+resource "proxmox_vm_qemu" "tmux" {
+  name        = "tmux"
+  target_node = "pve3"
+  clone       = var.vm_template
+  full_clone  = true
+  cpu {
+    cores = 4
+    type  = "kvm64"
+  }
+  memory    = 4096
+  scsihw    = "virtio-scsi-pci"
+  bootdisk  = "scsi0"
+  os_type   = "cloud-init"
+  agent     = 1
+  tags      = "tmux,prod,linux"
+  hagroup   = "prod"
+  hastate   = "started"
+  ciuser    = "oli"
+  sshkeys   = file("~/.ssh/ct-admin.pub")
+  ipconfig0 = "ip=dhcp"
+
+  # VGA
+  vga {
+    type = "std"
+  }
+
+  # System disk
+  disks {
+    ide {
+      ide0 {
+        cloudinit {
+          storage = "ceph_vmdisks"
+        }
+      }
+    }
+    scsi {
+      scsi0 {
+        disk {
+          size       = "50G"
+          storage    = "ceph_vmdisks"
+          emulatessd = true
+        }
+      }
+    }
+  }
+
+  network {
+    id      = 0
+    model   = "virtio"
+    bridge  = "MGMT"
+  }
+}
+
 resource "proxmox_vm_qemu" "consul_hosts" {
   for_each = local.consul_hosts
   name        = each.key
@@ -210,6 +263,14 @@ resource "proxmox_vm_qemu" "docker_hosts" {
   }
 }
 
+resource "routeros_ip_dhcp_server_lease" "tmux" {
+  address     = "10.18.10.100"
+  mac_address = proxmox_vm_qemu.tmux.network[0].macaddr
+  server      = "MGMT"
+
+  depends_on = [ proxmox_vm_qemu.tmux ]
+}
+
 resource "routeros_ip_dhcp_server_lease" "consul_0" {
   address     = "10.18.20.100"
   mac_address = "BC:24:11:1A:3D:3B"
@@ -262,6 +323,12 @@ resource "routeros_ip_dhcp_server_lease" "vault_2" {
   address     = "10.18.20.112"
   mac_address = "BC:24:11:65:3A:6E"
   server      = "PROD"
+}
+
+resource "routeros_ip_dns_record" "tmux" {
+  name    = "tmux.0lzi.com"
+  address = routeros_ip_dhcp_server_lease.tmux.address
+  type    = "A"
 }
 
 resource "routeros_ip_dns_record" "consul_0" {
