@@ -1,21 +1,24 @@
 variable "cloudflare_email" {
   type        = string
-  description = "clouflare email address"
+  description = "Clouflare email address"
 }
 
 variable "cloudflare_api_token" {
   type        = string
-  description = "cloudflare api token"
+  description = "Cloudflare api token"
 }
 
-variable "cloudflare_zone_name" {
+variable "cloudflare_zone_id" {
   type        = string
-  description = "domain.com"
+  description = "Zone ID"
+  sensitive = true
 }
 
-variable "records" {
+variable "dns_record" {
   type = map(object({
     name    = string
-    value   = string
+    content   = string
+    type = string
   }))
 }
+
