@@ -8,6 +8,6 @@ data "vault_policy_document" "all" {
 
 resource "vault_policy" "all" {
   name   = "all"
-  policy = data.vault_policy_document.everyone.hcl
+  policy = data.vault_policy_document.all.hcl
 }
 
