@@ -91,3 +91,10 @@ resource "routeros_ip_dns_record" "ap_01" {
   address = "10.18.10.2"
   type    = "A"
 }
+
+
+resource "routeros_ip_dns_record" "traefik" {
+  name    = "traefik.0lzi.com"
+  address = "10.18.20.200"
+  type    = "A"
+}
