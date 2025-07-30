@@ -10,8 +10,8 @@ resource "routeros_ip_pool" "mgmt" {
 resource "routeros_ip_dhcp_server_network" "mgmt" {
   address    = "10.18.10.0/24"
   comment    = routeros_ip_pool.mgmt.comment
-  gateway    = "10.18.10.254"
-  dns_server = ["10.18.10.254"]
+  gateway    = "10.18.10.1"
+  dns_server = ["10.18.10.1"]
   domain     = "0lzi.internal"
 }
 

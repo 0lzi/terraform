@@ -92,7 +92,11 @@ resource "routeros_ip_dns_record" "ap_01" {
   type    = "A"
 }
 
-
+resource "routeros_ip_dns_record" "vault" {
+  name    = "vault.0lzi.com"
+  address = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
 resource "routeros_ip_dns_record" "traefik" {
   name    = "traefik.0lzi.com"
   address = "10.18.20.200"
