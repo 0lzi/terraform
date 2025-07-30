@@ -325,12 +325,6 @@ resource "routeros_ip_dhcp_server_lease" "vault_2" {
   server      = "PROD"
 }
 
-resource "routeros_ip_dns_record" "tmux" {
-  name    = "tmux.0lzi.com"
-  address = routeros_ip_dhcp_server_lease.tmux.address
-  type    = "A"
-}
-
 resource "routeros_ip_dns_record" "consul_0" {
   name    = "consul-0.0lzi.com"
   address = routeros_ip_dhcp_server_lease.consul_0.address
@@ -382,5 +376,11 @@ resource "routeros_ip_dns_record" "vault_1" {
 resource "routeros_ip_dns_record" "vault_2" {
   name    = "vault-2.0lzi.com"
   address = routeros_ip_dhcp_server_lease.vault_2.address
+  type    = "A"
+}
+
+resource "routeros_ip_dns_record" "tmux" {
+  name    = "tmux.0lzi.com"
+  address = routeros_ip_dhcp_server_lease.tmux.address
   type    = "A"
 }
