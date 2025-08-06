@@ -109,3 +109,9 @@ resource "routeros_ip_dns_record" "consul" {
   cname = routeros_ip_dns_record.traefik.name
   type    = "CNAME"
 }
+
+resource "routeros_ip_dns_record" "immich" {
+  name    = "photos.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}

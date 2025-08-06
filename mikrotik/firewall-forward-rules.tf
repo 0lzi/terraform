@@ -47,6 +47,25 @@ resource "routeros_ip_firewall_filter" "drop_iot_to_rfc1918" {
   place_before     = routeros_ip_firewall_filter.default_drop.id
 }
 
+resource "routeros_ip_firewall_filter" "home_to_traefik" {
+  action           = "accept"
+  chain            = "forward"
+  comment          = "Allow HOME to Traefik"
+  src_address_list = "HOME"
+  dst_address      = routeros_ip_dns_record.traefik.address
+  place_before     = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
+  }
+
+
+resource "routeros_ip_firewall_filter" "home_to_immich" {
+  action           = "accept"
+  chain            = "forward"
+  comment          = "Allow HOME to Immich"
+  src_address_list = "HOME"
+  dst_address      = routeros_ip_dns_record.immich-prod.address
+  place_before     = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
+}
+
 resource "routeros_ip_firewall_filter" "drop_home_to_rfc1918" {
   action           = "drop"
   chain            = "forward"
