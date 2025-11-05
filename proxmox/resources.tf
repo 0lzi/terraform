@@ -51,6 +51,11 @@ locals {
 }
 
 resource "proxmox_vm_qemu" "tmux" {
+  lifecycle {
+    ignore_changes = [
+      target_node
+    ]
+  }
   name        = "tmux"
   target_node = "pve3"
   clone       = var.vm_template
@@ -104,6 +109,11 @@ resource "proxmox_vm_qemu" "tmux" {
 }
 
 resource "proxmox_vm_qemu" "consul_hosts" {
+  lifecycle {
+    ignore_changes = [
+      target_node
+    ]
+  }
   for_each = local.consul_hosts
   name        = each.key
   target_node = each.value.node
@@ -160,6 +170,11 @@ resource "proxmox_vm_qemu" "consul_hosts" {
 
 
 resource "proxmox_vm_qemu" "vault_hosts" {
+  lifecycle {
+    ignore_changes = [
+      target_node
+    ]
+  }
   for_each = local.vault_hosts
   name        = each.key
   target_node = each.value.node
@@ -215,6 +230,11 @@ resource "proxmox_vm_qemu" "vault_hosts" {
 }
 
 resource "proxmox_vm_qemu" "docker_hosts" {
+  lifecycle {
+    ignore_changes = [
+      target_node
+    ]
+  }
   for_each = local.docker_hosts
   name        = each.key
   target_node = each.value.node
@@ -333,6 +353,64 @@ resource "proxmox_vm_qemu" "gitlab" {
   }
 }
 
+resource "proxmox_vm_qemu" "gitlab-runner-1" {
+  lifecycle {
+    ignore_changes = [
+      target_node
+    ]
+  }
+  name        = "gitlab-runner-1"
+  target_node = "pve2"
+  clone       = var.vm_template
+  full_clone  = true
+  cpu {
+    cores = 4
+    type  = "kvm64"
+  }
+  memory    = 4096
+  scsihw    = "virtio-scsi-pci"
+  bootdisk  = "scsi0"
+  os_type   = "cloud-init"
+  agent     = 1
+  tags      = "gitlab,prod,linux"
+  hagroup   = "prod"
+  hastate   = "started"
+  ciuser    = "oli"
+  sshkeys   = local.ssh_keys
+  ipconfig0 = "ip=dhcp"
+
+  # VGA
+  vga {
+    type = "std"
+  }
+
+  # System disk
+  disks {
+    ide {
+      ide0 {
+        cloudinit {
+          storage = "ceph_vmdisks"
+        }
+      }
+    }
+    scsi {
+      scsi0 {
+        disk {
+          size       = "50G"
+          storage    = "ceph_vmdisks"
+          emulatessd = true
+        }
+      }
+    }
+  }
+
+  network {
+    id      = 0
+    model   = "virtio"
+    bridge  = "MGMT"
+  }
+}
+
 resource "routeros_ip_dhcp_server_lease" "gitlab" {
   address     = "10.18.20.27"
   mac_address = proxmox_vm_qemu.gitlab.network[0].macaddr
@@ -341,6 +419,13 @@ resource "routeros_ip_dhcp_server_lease" "gitlab" {
   depends_on = [ proxmox_vm_qemu.gitlab ]
 }
 
+resource "routeros_ip_dhcp_server_lease" "gitlab-runner-1" {
+  address     = "10.18.10.101"
+  mac_address = proxmox_vm_qemu.gitlab-runner-1.network[0].macaddr
+  server      = "MGMT"
+
+  depends_on = [ proxmox_vm_qemu.gitlab-runner-1 ]
+}
 
 resource "routeros_ip_dhcp_server_lease" "tmux" {
   address     = "10.18.10.100"
@@ -464,8 +549,20 @@ resource "routeros_ip_dns_record" "tmux" {
   type    = "A"
 }
 
+resource "routeros_ip_dns_record" "gitlab-runner-1" {
+  name    = "gitlab-runner-1.0lzi.com"
+  address = routeros_ip_dhcp_server_lease.gitlab-runner-1.address
+  type    = "A"
+}
+
 resource "routeros_ip_dns_record" "gitlab-internal" {
   name    = "gitlab.0lzi.internal"
+  address = routeros_ip_dhcp_server_lease.gitlab.address
+  type    = "A"
+}
+
+resource "routeros_ip_dns_record" "registry-gitlab-internal" {
+  name    = "registry.gitlab.0lzi.internal"
   address = routeros_ip_dhcp_server_lease.gitlab.address
   type    = "A"
 }
