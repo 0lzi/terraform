@@ -2,4 +2,4 @@
 .tflint:
   stage: lint
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_reqest_event'
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
