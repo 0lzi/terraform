@@ -12,7 +12,3 @@ include:
   - local: .gitlab/ci/lint/mikrotik.yml
   - local: .gitlab/ci/lint/openbao.yml
   - local: .gitlab/ci/lint/proxmox.yml
-
-# Plan
-
-# Deploy
