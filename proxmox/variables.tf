@@ -1,5 +1,6 @@
 variable "vm_template" {
   default = "ubuntu24.04-cloud"
+  type = string
 }
 
 variable "mikrotik_host_url" {
@@ -12,12 +13,6 @@ variable "mikrotik_username" {
   type        = string
   sensitive   = true
   description = "The username for accessing the MikroTik device."
-}
-
-variable "user_password" {
-  type        = string
-  sensitive   = true
-  description = "The password for user"
 }
 
 variable "mikrotik_password" {

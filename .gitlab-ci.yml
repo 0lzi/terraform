@@ -1,0 +1,18 @@
+image: registry.gitlab.0lzi.com/containers/terraform:main
+
+stages:
+  - lint
+  - plan
+  - deploy
+
+# Linting
+include:
+  - local: .gitlab/ci/lint/lint.yml
+  - local: .gitlab/ci/lint/cloudflare.yml
+  - local: .gitlab/ci/lint/mikrotik.yml
+  - local: .gitlab/ci/lint/openbao.yml
+  - local: .gitlab/ci/lint/proxmox.yml
+
+# Plan
+
+# Deploy
