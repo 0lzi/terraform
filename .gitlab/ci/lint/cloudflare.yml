@@ -1,0 +1,5 @@
+---
+cloudflare:
+  extends: .tflint
+  script:
+    - tflint --chdir=./cloudflare
