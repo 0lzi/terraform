@@ -115,3 +115,21 @@ resource "routeros_ip_dns_record" "immich" {
   cname = routeros_ip_dns_record.traefik.name
   type    = "CNAME"
 }
+
+resource "routeros_ip_dns_record" "proxmox" {
+  name    = "pve.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
+
+resource "routeros_ip_dns_record" "gitlab" {
+  name    = "gitlab.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
+
+resource "routeros_ip_dns_record" "gitlab-registry" {
+  name    = "registry.gitlab.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
