@@ -14,3 +14,11 @@ resource "vault_generic_endpoint" "demo" {
 }
 EOT
 }
+
+# JWT auth for gitlab
+resource "vault_jwt_auth_backend" "jwt_gitlab" {
+  path  = "jwt"
+  oidc_discovery_url ="https://gitlab.0lzi.com"
+  bound_issuer = "https://gitlab.0lzi.com"
+  description = "JWT Auth for Gitlab"
+}
