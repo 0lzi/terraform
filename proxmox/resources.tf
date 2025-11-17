@@ -65,6 +65,7 @@ resource "proxmox_vm_qemu" "tmux" {
     type  = "kvm64"
   }
   memory    = 4096
+  balloon   = 1024
   scsihw    = "virtio-scsi-pci"
   bootdisk  = "scsi0"
   os_type   = "cloud-init"
@@ -124,6 +125,7 @@ resource "proxmox_vm_qemu" "consul_hosts" {
     type  = "kvm64"
   }
   memory    = 2048
+  balloon   = 512
   scsihw    = "virtio-scsi-pci"
   bootdisk  = "scsi0"
   os_type   = "cloud-init"
@@ -185,6 +187,7 @@ resource "proxmox_vm_qemu" "vault_hosts" {
     type  = "kvm64"
   }
   memory    = 2048
+  balloon   = 512
   scsihw    = "virtio-scsi-pci"
   bootdisk  = "scsi0"
   os_type   = "cloud-init"
@@ -245,6 +248,7 @@ resource "proxmox_vm_qemu" "docker_hosts" {
     type  = "kvm64"
   }
   memory    = 4096
+  balloon   = 512
   scsihw    = "virtio-scsi-pci"
   bootdisk  = "scsi0"
   os_type   = "cloud-init"
@@ -303,6 +307,7 @@ resource "proxmox_vm_qemu" "gitlab" {
     type  = "kvm64"
   }
   memory    = 6144
+  balloon   = 6144
   scsihw    = "virtio-scsi-pci"
   bootdisk  = "scsi0"
   os_type   = "cloud-init"
@@ -368,6 +373,7 @@ resource "proxmox_vm_qemu" "gitlab-runner-1" {
     type  = "kvm64"
   }
   memory    = 4096
+  balloon   = 1024
   scsihw    = "virtio-scsi-pci"
   bootdisk  = "scsi0"
   os_type   = "cloud-init"
