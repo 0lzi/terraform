@@ -15,4 +15,16 @@ include:
 
 # Plan
 
+  - local: .gitlab/ci/plan/plan.yml
+  - local: .gitlab/ci/plan/cloudflare.yml
+  - local: .gitlab/ci/plan/mikrotik.yml
+  - local: .gitlab/ci/plan/openbao.yml
+  - local: .gitlab/ci/plan/proxmox.yml
+
 # Deploy
+
+  - local: .gitlab/ci/deploy/deploy.yml
+  - local: .gitlab/ci/deploy/cloudflare.yml
+  - local: .gitlab/ci/deploy/mikrotik.yml
+  - local: .gitlab/ci/deploy/openbao.yml
+  - local: .gitlab/ci/deploy/proxmox.yml
