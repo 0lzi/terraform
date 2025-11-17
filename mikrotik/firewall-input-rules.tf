@@ -4,6 +4,7 @@
 # ==================================================================
 resource "routeros_ip_firewall_filter" "allow_rfc1918" {
   action           = "accept"
+  disabled         = false
   chain            = "input"
   comment          = "Allow from rfc1918 addresses"
   src_address_list = "RFC1918"
@@ -12,6 +13,7 @@ resource "routeros_ip_firewall_filter" "allow_rfc1918" {
 
 resource "routeros_ip_firewall_filter" "allow_wg" {
   action           = "accept"
+  disabled         = false
   chain            = "input"
   comment          = "Allow Wireguard"
   protocol         = "udp"
@@ -22,6 +24,7 @@ resource "routeros_ip_firewall_filter" "allow_wg" {
 
 resource "routeros_ip_firewall_filter" "accept_established_related_untracked" {
   action           = "accept"
+  disabled         = false
   chain            = "input"
   comment          = "Allow established-related"
   connection_state = "established,related,untracked"
@@ -30,6 +33,7 @@ resource "routeros_ip_firewall_filter" "accept_established_related_untracked" {
 
 resource "routeros_ip_firewall_filter" "drop_invalid" {
   action           = "drop"
+  disabled         = false
   chain            = "input"
   comment          = "Drop Invalid"
   connection_state = "invalid"
@@ -38,6 +42,7 @@ resource "routeros_ip_firewall_filter" "drop_invalid" {
 
 resource "routeros_ip_firewall_filter" "drop_icmp" {
   action       = "drop"
+  disabled         = false
   chain        = "input"
   comment      = "Drop ICMP from WAN"
   in_interface = "pppoe-out1"
@@ -47,6 +52,7 @@ resource "routeros_ip_firewall_filter" "drop_icmp" {
 
 resource "routeros_ip_firewall_filter" "default_drop" {
   action       = "drop"
+  disabled         = false
   chain        = "input"
   comment      = "Default-Drop"
   in_interface = "pppoe-out1"

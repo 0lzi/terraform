@@ -133,3 +133,9 @@ resource "routeros_ip_dns_record" "gitlab-registry" {
   cname = routeros_ip_dns_record.traefik.name
   type    = "CNAME"
 }
+
+resource "routeros_ip_dns_record" "grafana" {
+  name    = "grafana.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}

@@ -4,6 +4,7 @@
 # ==================================================================
 resource "routeros_ip_firewall_filter" "allow_mgmt_forward" {
   action           = "accept"
+  disabled         = false
   chain            = "forward"
   comment          = "Allow MGMT anywhere"
   src_address_list = "MGMT"
@@ -13,6 +14,7 @@ resource "routeros_ip_firewall_filter" "allow_mgmt_forward" {
 
 resource "routeros_ip_firewall_filter" "allow_guest_portal" {
   action           = "accept"
+  disabled         = false
   chain            = "forward"
   comment          = "Allow Guest to portal"
   src_address_list = "GUEST"
@@ -22,6 +24,7 @@ resource "routeros_ip_firewall_filter" "allow_guest_portal" {
 
 resource "routeros_ip_firewall_filter" "drop_guest_to_rfc1918" {
   action           = "drop"
+  disabled         = false
   chain            = "forward"
   comment          = "Drop Guest to rfc1918 addresses"
   src_address_list = "GUEST"
@@ -31,6 +34,7 @@ resource "routeros_ip_firewall_filter" "drop_guest_to_rfc1918" {
 
 resource "routeros_ip_firewall_filter" "drop_dev_to_rfc1918" {
   action           = "drop"
+  disabled         = false
   chain            = "forward"
   comment          = "Drop DEV to rfc1918 addresses"
   src_address_list = "DEV"
@@ -40,6 +44,7 @@ resource "routeros_ip_firewall_filter" "drop_dev_to_rfc1918" {
 
 resource "routeros_ip_firewall_filter" "drop_iot_to_rfc1918" {
   action           = "drop"
+  disabled         = false
   chain            = "forward"
   comment          = "Drop IoT to rfc1918 addresses"
   src_address_list = "IOT"
@@ -49,6 +54,7 @@ resource "routeros_ip_firewall_filter" "drop_iot_to_rfc1918" {
 
 resource "routeros_ip_firewall_filter" "home_to_traefik" {
   action           = "accept"
+  disabled         = false
   chain            = "forward"
   comment          = "Allow HOME to Traefik"
   src_address_list = "HOME"
@@ -59,6 +65,7 @@ resource "routeros_ip_firewall_filter" "home_to_traefik" {
 
 resource "routeros_ip_firewall_filter" "home_to_immich" {
   action           = "accept"
+  disabled         = false
   chain            = "forward"
   comment          = "Allow HOME to Immich"
   src_address_list = "HOME"
@@ -68,6 +75,7 @@ resource "routeros_ip_firewall_filter" "home_to_immich" {
 
 resource "routeros_ip_firewall_filter" "drop_home_to_rfc1918" {
   action           = "drop"
+  disabled         = false
   chain            = "forward"
   comment          = "Drop HOME to rfc1918 addresses"
   src_address_list = "HOME"
