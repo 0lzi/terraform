@@ -417,6 +417,63 @@ resource "proxmox_vm_qemu" "gitlab-runner-1" {
   }
 }
 
+
+resource "proxmox_vm_qemu" "home-assistant" {
+  lifecycle {
+    ignore_changes = [
+      target_node
+    ]
+  }
+  name        = "home-assistant"
+  target_node = "pve2"
+  cpu {
+    cores = 4
+    type  = "kvm64"
+  }
+  memory    = 4096
+  balloon   = 1024
+  scsihw    = "virtio-scsi-pci"
+  bootdisk  = "scsi1"
+  agent     = 1
+  tags      = "gitlab,prod,linux,home-automation"
+  hagroup   = "prod"
+  hastate   = "started"
+  ipconfig0 = "ip=dhcp"
+  bios      = "ovmf"
+  onboot    = true
+  # VGA
+  vga {
+    type = "std"
+  }
+
+  # System disk
+  disks {
+    scsi {
+      scsi1 {
+        disk {
+          size       = "32G"
+          storage    = "ceph_vmdisks"
+          emulatessd = true
+        }
+      }
+    }
+  }
+
+  network {
+    id      = 0
+    model   = "virtio"
+    bridge  = "IoT"
+  }
+}
+
+resource "routeros_ip_dhcp_server_lease" "home-assistant" {
+  address     = "10.18.40.100"
+  mac_address = proxmox_vm_qemu.home-assistant.network[0].macaddr
+  server      = "IoT"
+
+  depends_on = [ proxmox_vm_qemu.home-assistant ]
+}
+
 resource "routeros_ip_dhcp_server_lease" "gitlab" {
   address     = "10.18.20.27"
   mac_address = proxmox_vm_qemu.gitlab.network[0].macaddr
@@ -570,5 +627,11 @@ resource "routeros_ip_dns_record" "gitlab-internal" {
 resource "routeros_ip_dns_record" "registry-gitlab-internal" {
   name    = "registry.gitlab.0lzi.internal"
   address = routeros_ip_dhcp_server_lease.gitlab.address
+  type    = "A"
+}
+
+resource "routeros_ip_dns_record" "home-assistant-internal" {
+  name    = "home-assistant.0lzi.internal"
+  address = routeros_ip_dhcp_server_lease.home-assistant.address
   type    = "A"
 }

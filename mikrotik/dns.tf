@@ -139,3 +139,9 @@ resource "routeros_ip_dns_record" "grafana" {
   cname = routeros_ip_dns_record.traefik.name
   type    = "CNAME"
 }
+
+resource "routeros_ip_dns_record" "home-assistant" {
+  name    = "home-assistant.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
