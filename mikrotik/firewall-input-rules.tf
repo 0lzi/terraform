@@ -27,7 +27,7 @@ resource "routeros_ip_firewall_filter" "accept_established_related_untracked" {
   disabled         = false
   chain            = "input"
   comment          = "Allow established-related"
-  connection_state = "established,related,untracked"
+  connection_state = "established,related"
   place_before     = routeros_ip_firewall_filter.drop_invalid.id
 }
 

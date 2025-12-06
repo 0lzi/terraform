@@ -96,10 +96,30 @@ resource "routeros_ip_firewall_filter" "home_to_home-assistant" {
   action           = "accept"
   disabled         = false
   chain            = "forward"
-  comment          = "Allow HOME to Home Assistant"
+  comment          = "allow HOME to Home Assistant"
   src_address_list = "HOME"
   dst_address      = "10.18.40.100"
   place_before     = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
+}
+
+resource "routeros_ip_firewall_filter" "traefik_to_home-assistant" {
+  action           = "accept"
+  disabled         = false
+  chain            = "forward"
+  comment          = "allow traefik to home assistant"
+  src_address      = routeros_ip_dns_record.traefik.address
+  dst_address      = "10.18.40.100"
+  place_before     = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
+}
+
+resource "routeros_ip_firewall_filter" "traefik_to_pve" {
+  action           = "accept"
+  disabled         = false
+  chain            = "forward"
+  comment          = "allow traefik to PVE"
+  src_address      = routeros_ip_dns_record.traefik.address
+  dst_address_list = "PVE"
+  place_before     = routeros_ip_firewall_filter.drop_prod_to_rfc1918.id
 }
 
 resource "routeros_ip_firewall_filter" "drop_home_to_rfc1918" {

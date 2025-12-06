@@ -40,3 +40,17 @@ resource "routeros_ip_firewall_addr_list" "lan" {
   list    = each.value.list
   comment = each.value.list
 }
+
+# ==================================================================
+# Firewall Address List PVE
+# ==================================================================
+resource "routeros_ip_firewall_addr_list" "pve" {
+   for_each = {
+    "pve1"       = { address = "10.18.10.10" , list = "PVE" }
+    "pve2"       = { address = "10.18.10.11" , list = "PVE" }
+    "pve3"       = { address = "10.18.10.12" , list = "PVE" }
+  }
+  address = each.value.address
+  list    = each.value.list
+  comment = each.value.list
+}
