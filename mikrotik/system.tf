@@ -18,3 +18,9 @@ resource "routeros_system_ntp_server" "ntp_server" {
   use_local_clock     = true
   local_clock_stratum = 3
 }
+
+resource "routeros_interface_ethernet_switch" "switch1" {
+  name = "switch1"
+  l3_hw_offloading = true
+}
+
