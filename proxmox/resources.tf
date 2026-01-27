@@ -256,7 +256,7 @@ resource "proxmox_vm_qemu" "docker_hosts" {
   tags      = "docker,prod,linux"
   hagroup   = "prod"
   hastate   = "started"
-  onboot    = true
+  start_at_node_boot    = true
   ciuser    = "oli"
   sshkeys   = local.ssh_keys
   ipconfig0 = "ip=dhcp"
@@ -315,7 +315,7 @@ resource "proxmox_vm_qemu" "gitlab" {
   tags      = "docker,prod,linux"
   hagroup   = "prod"
   hastate   = "started"
-  onboot    = true
+  start_at_node_boot    = true
   ciuser    = "oli"
   sshkeys   = local.ssh_keys
   ipconfig0 = "ip=dhcp"
@@ -434,13 +434,13 @@ resource "proxmox_vm_qemu" "home-assistant" {
   balloon   = 1024
   scsihw    = "virtio-scsi-pci"
   bootdisk  = "scsi1"
-  agent     = 1
+  agent     = 0
   tags      = "gitlab,prod,linux,home-automation"
   hagroup   = "prod"
   hastate   = "started"
   ipconfig0 = "ip=dhcp"
   bios      = "ovmf"
-  onboot    = true
+  start_at_node_boot    = true
   # VGA
   vga {
     type = "std"
