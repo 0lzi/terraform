@@ -145,3 +145,15 @@ resource "routeros_ip_dns_record" "home-assistant" {
   cname = routeros_ip_dns_record.traefik.name
   type    = "CNAME"
 }
+
+resource "routeros_ip_dns_record" "loki" {
+  name    = "loki.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
+
+resource "routeros_ip_dns_record" "mimir" {
+  name    = "mimir.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
