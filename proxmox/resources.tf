@@ -50,6 +50,66 @@ locals {
   ])
 }
 
+resource "proxmox_vm_qemu" "alloy" {
+  lifecycle {
+    ignore_changes = [
+      target_node
+    ]
+  }
+  name        = "alloy"
+  target_node = "pve3"
+  clone       = var.vm_template
+  full_clone  = true
+  cpu {
+    cores = 2
+    type  = "kvm64"
+  }
+  memory             = 1024
+  balloon            = 1024
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi0"
+  os_type            = "cloud-init"
+  agent              = 1
+  tags               = "tmux,prod,linux"
+  hagroup            = "prod"
+  hastate            = "started"
+  start_at_node_boot = true
+  ciuser             = "oli"
+  sshkeys            = local.ssh_keys
+  ipconfig0          = "ip=dhcp"
+
+  # VGA
+  vga {
+    type = "std"
+  }
+
+  # System disk
+  disks {
+    ide {
+      ide0 {
+        cloudinit {
+          storage = "ceph_vmdisks"
+        }
+      }
+    }
+    scsi {
+      scsi0 {
+        disk {
+          size       = "20G"
+          storage    = "ceph_vmdisks"
+          emulatessd = true
+        }
+      }
+    }
+  }
+
+  network {
+    id     = 0
+    model  = "virtio"
+    bridge = "MGMT"
+  }
+}
+
 resource "proxmox_vm_qemu" "tmux" {
   lifecycle {
     ignore_changes = [
@@ -64,18 +124,19 @@ resource "proxmox_vm_qemu" "tmux" {
     cores = 4
     type  = "kvm64"
   }
-  memory    = 4096
-  balloon   = 1024
-  scsihw    = "virtio-scsi-pci"
-  bootdisk  = "scsi0"
-  os_type   = "cloud-init"
-  agent     = 1
-  tags      = "tmux,prod,linux"
-  hagroup   = "prod"
-  hastate   = "started"
-  ciuser    = "oli"
-  sshkeys   = local.ssh_keys
-  ipconfig0 = "ip=dhcp"
+  memory             = 4096
+  balloon            = 1024
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi0"
+  os_type            = "cloud-init"
+  agent              = 1
+  tags               = "tmux,prod,linux"
+  hagroup            = "prod"
+  hastate            = "started"
+  start_at_node_boot = true
+  ciuser             = "oli"
+  sshkeys            = local.ssh_keys
+  ipconfig0          = "ip=dhcp"
 
   # VGA
   vga {
@@ -103,9 +164,9 @@ resource "proxmox_vm_qemu" "tmux" {
   }
 
   network {
-    id      = 0
-    model   = "virtio"
-    bridge  = "MGMT"
+    id     = 0
+    model  = "virtio"
+    bridge = "MGMT"
   }
 }
 
@@ -115,7 +176,7 @@ resource "proxmox_vm_qemu" "consul_hosts" {
       target_node
     ]
   }
-  for_each = local.consul_hosts
+  for_each    = local.consul_hosts
   name        = each.key
   target_node = each.value.node
   clone       = var.vm_template
@@ -124,18 +185,19 @@ resource "proxmox_vm_qemu" "consul_hosts" {
     cores = 2
     type  = "kvm64"
   }
-  memory    = 2048
-  balloon   = 512
-  scsihw    = "virtio-scsi-pci"
-  bootdisk  = "scsi0"
-  os_type   = "cloud-init"
-  agent     = 1
-  tags      = "docker,prod,linux"
-  hagroup   = "prod"
-  hastate   = "started"
-  ciuser    = "oli"
-  sshkeys   = local.ssh_keys
-  ipconfig0 = "ip=dhcp"
+  memory             = 2048
+  balloon            = 512
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi0"
+  os_type            = "cloud-init"
+  agent              = 1
+  tags               = "docker,prod,linux"
+  hagroup            = "prod"
+  hastate            = "started"
+  start_at_node_boot = true
+  ciuser             = "oli"
+  sshkeys            = local.ssh_keys
+  ipconfig0          = "ip=dhcp"
 
   # VGA
   vga {
@@ -177,7 +239,7 @@ resource "proxmox_vm_qemu" "vault_hosts" {
       target_node
     ]
   }
-  for_each = local.vault_hosts
+  for_each    = local.vault_hosts
   name        = each.key
   target_node = each.value.node
   clone       = var.vm_template
@@ -186,18 +248,19 @@ resource "proxmox_vm_qemu" "vault_hosts" {
     cores = 2
     type  = "kvm64"
   }
-  memory    = 2048
-  balloon   = 512
-  scsihw    = "virtio-scsi-pci"
-  bootdisk  = "scsi0"
-  os_type   = "cloud-init"
-  agent     = 1
-  tags      = "docker,prod,linux"
-  hagroup   = "prod"
-  hastate   = "started"
-  ciuser    = "oli"
-  sshkeys   = local.ssh_keys
-  ipconfig0 = "ip=dhcp"
+  memory             = 2048
+  balloon            = 512
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi0"
+  os_type            = "cloud-init"
+  agent              = 1
+  tags               = "docker,prod,linux"
+  hagroup            = "prod"
+  hastate            = "started"
+  start_at_node_boot = true
+  ciuser             = "oli"
+  sshkeys            = local.ssh_keys
+  ipconfig0          = "ip=dhcp"
 
   # VGA
   vga {
@@ -238,7 +301,7 @@ resource "proxmox_vm_qemu" "docker_hosts" {
       target_node
     ]
   }
-  for_each = local.docker_hosts
+  for_each    = local.docker_hosts
   name        = each.key
   target_node = each.value.node
   clone       = var.vm_template
@@ -247,19 +310,19 @@ resource "proxmox_vm_qemu" "docker_hosts" {
     cores = 4
     type  = "kvm64"
   }
-  memory    = 4096
-  balloon   = 512
-  scsihw    = "virtio-scsi-pci"
-  bootdisk  = "scsi0"
-  os_type   = "cloud-init"
-  agent     = 1
-  tags      = "docker,prod,linux"
-  hagroup   = "prod"
-  hastate   = "started"
-  start_at_node_boot    = true
-  ciuser    = "oli"
-  sshkeys   = local.ssh_keys
-  ipconfig0 = "ip=dhcp"
+  memory             = 4096
+  balloon            = 512
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi0"
+  os_type            = "cloud-init"
+  agent              = 1
+  tags               = "docker,prod,linux"
+  hagroup            = "prod"
+  hastate            = "started"
+  start_at_node_boot = true
+  ciuser             = "oli"
+  sshkeys            = local.ssh_keys
+  ipconfig0          = "ip=dhcp"
 
   # VGA
   vga {
@@ -296,7 +359,7 @@ resource "proxmox_vm_qemu" "docker_hosts" {
 resource "proxmox_vm_qemu" "gitlab" {
   lifecycle { # This instance was created outside of Terraform
     prevent_destroy = true
-    ignore_changes = all
+    ignore_changes  = all
   }
   name        = "gitlab"
   target_node = "pve1"
@@ -306,19 +369,19 @@ resource "proxmox_vm_qemu" "gitlab" {
     cores = 6
     type  = "kvm64"
   }
-  memory    = 6144
-  balloon   = 6144
-  scsihw    = "virtio-scsi-pci"
-  bootdisk  = "scsi0"
-  os_type   = "cloud-init"
-  agent     = 1
-  tags      = "docker,prod,linux"
-  hagroup   = "prod"
-  hastate   = "started"
-  start_at_node_boot    = true
-  ciuser    = "oli"
-  sshkeys   = local.ssh_keys
-  ipconfig0 = "ip=dhcp"
+  memory             = 6144
+  balloon            = 6144
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi0"
+  os_type            = "cloud-init"
+  agent              = 1
+  tags               = "docker,prod,linux"
+  hagroup            = "prod"
+  hastate            = "started"
+  start_at_node_boot = true
+  ciuser             = "oli"
+  sshkeys            = local.ssh_keys
+  ipconfig0          = "ip=dhcp"
 
   # VGA
   vga {
@@ -372,18 +435,19 @@ resource "proxmox_vm_qemu" "gitlab-runner-1" {
     cores = 4
     type  = "kvm64"
   }
-  memory    = 4096
-  balloon   = 1024
-  scsihw    = "virtio-scsi-pci"
-  bootdisk  = "scsi0"
-  os_type   = "cloud-init"
-  agent     = 1
-  tags      = "gitlab,prod,linux"
-  hagroup   = "prod"
-  hastate   = "started"
-  ciuser    = "oli"
-  sshkeys   = local.ssh_keys
-  ipconfig0 = "ip=dhcp"
+  memory             = 4096
+  balloon            = 1024
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi0"
+  os_type            = "cloud-init"
+  agent              = 1
+  tags               = "gitlab,prod,linux"
+  hagroup            = "prod"
+  hastate            = "started"
+  start_at_node_boot = true
+  ciuser             = "oli"
+  sshkeys            = local.ssh_keys
+  ipconfig0          = "ip=dhcp"
 
   # VGA
   vga {
@@ -411,9 +475,9 @@ resource "proxmox_vm_qemu" "gitlab-runner-1" {
   }
 
   network {
-    id      = 0
-    model   = "virtio"
-    bridge  = "MGMT"
+    id     = 0
+    model  = "virtio"
+    bridge = "MGMT"
   }
 }
 
@@ -430,17 +494,17 @@ resource "proxmox_vm_qemu" "home-assistant" {
     cores = 4
     type  = "kvm64"
   }
-  memory    = 4096
-  balloon   = 1024
-  scsihw    = "virtio-scsi-pci"
-  bootdisk  = "scsi1"
-  agent     = 0
-  tags      = "gitlab,prod,linux,home-automation"
-  hagroup   = "prod"
-  hastate   = "started"
-  ipconfig0 = "ip=dhcp"
-  bios      = "ovmf"
-  start_at_node_boot    = true
+  memory             = 4096
+  balloon            = 1024
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi1"
+  agent              = 0
+  tags               = "gitlab,prod,linux,home-automation"
+  hagroup            = "prod"
+  hastate            = "started"
+  ipconfig0          = "ip=dhcp"
+  bios               = "ovmf"
+  start_at_node_boot = true
   # VGA
   vga {
     type = "std"
@@ -460,9 +524,9 @@ resource "proxmox_vm_qemu" "home-assistant" {
   }
 
   network {
-    id      = 0
-    model   = "virtio"
-    bridge  = "IoT"
+    id     = 0
+    model  = "virtio"
+    bridge = "IoT"
   }
 }
 
@@ -471,7 +535,7 @@ resource "routeros_ip_dhcp_server_lease" "home-assistant" {
   mac_address = proxmox_vm_qemu.home-assistant.network[0].macaddr
   server      = "IoT"
 
-  depends_on = [ proxmox_vm_qemu.home-assistant ]
+  depends_on = [proxmox_vm_qemu.home-assistant]
 }
 
 resource "routeros_ip_dhcp_server_lease" "gitlab" {
@@ -479,7 +543,7 @@ resource "routeros_ip_dhcp_server_lease" "gitlab" {
   mac_address = proxmox_vm_qemu.gitlab.network[0].macaddr
   server      = "PROD"
 
-  depends_on = [ proxmox_vm_qemu.gitlab ]
+  depends_on = [proxmox_vm_qemu.gitlab]
 }
 
 resource "routeros_ip_dhcp_server_lease" "gitlab-runner-1" {
@@ -487,7 +551,15 @@ resource "routeros_ip_dhcp_server_lease" "gitlab-runner-1" {
   mac_address = proxmox_vm_qemu.gitlab-runner-1.network[0].macaddr
   server      = "MGMT"
 
-  depends_on = [ proxmox_vm_qemu.gitlab-runner-1 ]
+  depends_on = [proxmox_vm_qemu.gitlab-runner-1]
+}
+
+resource "routeros_ip_dhcp_server_lease" "alloy" {
+  address     = "10.18.10.102"
+  mac_address = proxmox_vm_qemu.alloy.network[0].macaddr
+  server      = "MGMT"
+
+  depends_on = [proxmox_vm_qemu.alloy]
 }
 
 resource "routeros_ip_dhcp_server_lease" "tmux" {
@@ -495,7 +567,7 @@ resource "routeros_ip_dhcp_server_lease" "tmux" {
   mac_address = proxmox_vm_qemu.tmux.network[0].macaddr
   server      = "MGMT"
 
-  depends_on = [ proxmox_vm_qemu.tmux ]
+  depends_on = [proxmox_vm_qemu.tmux]
 }
 
 resource "routeros_ip_dhcp_server_lease" "consul_0" {
@@ -603,6 +675,12 @@ resource "routeros_ip_dns_record" "vault_1" {
 resource "routeros_ip_dns_record" "vault_2" {
   name    = "vault-2.0lzi.com"
   address = routeros_ip_dhcp_server_lease.vault_2.address
+  type    = "A"
+}
+
+resource "routeros_ip_dns_record" "alloy" {
+  name    = "alloy.0lzi.com"
+  address = routeros_ip_dhcp_server_lease.alloy.address
   type    = "A"
 }
 
