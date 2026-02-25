@@ -15,7 +15,7 @@ resource "routeros_ip_firewall_nat" "dnat_01" {
   action           = "dst-nat"
   comment          = "Docker SWAG HTTPS"
   chain            = "dstnat"
-  to_addresses     = "192.168.1.153"
+  to_addresses     = routeros_ip_dns_record.traefik.address
   to_ports         = "443"
   dst_address_list = "WAN"
   dst_port         = "443"
@@ -27,7 +27,7 @@ resource "routeros_ip_firewall_nat" "dnat_02" {
   action           = "dst-nat"
   comment          = "Docker SWAG HTTP"
   chain            = "dstnat"
-  to_addresses     = "192.168.1.153"
+  to_addresses     = routeros_ip_dns_record.traefik.address
   to_ports         = "80"
   dst_address_list = "WAN"
   dst_port         = "80"
@@ -47,13 +47,36 @@ resource "routeros_ip_firewall_nat" "dnat_03" {
   place_before     = routeros_ip_firewall_nat.hairpin_nat_01.id
 }
 
+resource "routeros_ip_firewall_nat" "dnat_04" {
+  action           = "dst-nat"
+  comment          = "Teamspeak-9987"
+  chain            = "dstnat"
+  to_addresses     = routos_ip_dns_record.traefik.address
+  to_ports         = "9987"
+  dst_address_list = "WAN"
+  dst_port         = "9987"
+  protocol         = "udp"
+  place_before     = routeros_ip_firewall_nat.hairpin_nat_01.id
+}
+
+resource "routeros_ip_firewall_nat" "dnat_05" {
+  action           = "dst-nat"
+  comment          = "Teamspeak-3033"
+  chain            = "dstnat"
+  to_addresses     = routos_ip_dns_record.traefik.address
+  to_ports         = "3033"
+  dst_address_list = "WAN"
+  dst_port         = "3033"
+  protocol         = "tcp"
+  place_before     = routeros_ip_firewall_nat.hairpin_nat_01.id
+}
+
 resource "routeros_ip_firewall_nat" "hairpin_nat_01" {
   action           = "masquerade"
   comment          = "Hairpin NAT for DOCKER"
   chain            = "srcnat"
-  dst_address    = "192.168.1.153"
+  to_addresses     = routeros_ip_dns_record.traefik.address
   src_address_list = "RFC1918"
   protocol         = "tcp"
   out_interface    = "bridge"
 }
-

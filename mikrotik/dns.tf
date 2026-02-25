@@ -157,3 +157,15 @@ resource "routeros_ip_dns_record" "mimir" {
   cname = routeros_ip_dns_record.traefik.name
   type    = "CNAME"
 }
+
+resource "routeros_ip_dns_record" "nextcloud" {
+  name    = "nextcloud.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
+
+resource "routeros_ip_dns_record" "crowdsec" {
+  name    = "crowdsec.0lzi.com"
+  cname = routeros_ip_dns_record.traefik.name
+  type    = "CNAME"
+}
