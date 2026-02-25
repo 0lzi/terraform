@@ -1,5 +1,0 @@
----
-proxmox:
-  extends: .tflint
-  script:
-    - tflint --chdir=./proxmox

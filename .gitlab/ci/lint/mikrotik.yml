@@ -1,5 +1,0 @@
----
-mikrotik:
-  extends: .tflint
-  script:
-    - tflint --chdir=./mikrotik

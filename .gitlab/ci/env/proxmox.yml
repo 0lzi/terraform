@@ -1,0 +1,31 @@
+---
+proxmox:
+  extends: .tflint
+  variables:
+    ENV: proxmox
+
+plan-proxmox:
+  extends:
+    - .base
+    - .plan_base
+  variables:
+    ENV: proxmox
+  stage: plan
+  script:
+    - tofu init -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE"
+    - tofu plan -out=$PLAN
+    - tofu show -json $PLAN | convert-report > $PLAN_JSON
+
+deploy-proxmox:
+  extends:
+    - .base
+    - .manual_on_default_branch
+  variables:
+    ENV: proxmox
+  stage: deploy
+  needs:
+    - job: plan-proxmox
+      artifacts: true
+  script:
+    - tofu init -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE"
+    - tofu apply $PLAN

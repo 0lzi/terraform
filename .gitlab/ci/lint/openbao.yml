@@ -1,5 +1,0 @@
----
-openbao:
-  extends: .tflint
-  script:
-    - tflint --chdir=./openbao

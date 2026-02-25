@@ -1,0 +1,47 @@
+---
+.tflint:
+  stage: lint
+  tags:
+    - terraform
+  script:
+    - tflint --chdir=./${ENV}
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+.base:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  allow_failure: true
+  tags:
+    - terraform
+  variables:
+    VAULT_ADDR: https://vault.0lzi.com
+    PLAN: $CI_PROJECT_DIR/${ENV}/${ENV}-plan.cache
+    PLAN_JSON: $CI_PROJECT_DIR/${ENV}/${ENV}-plan.json
+  id_tokens:
+    VAULT_ID_TOKEN:
+      aud: https://vault.0lzi.com
+  before_script:
+    - export VAULT_TOKEN="$(/bin/bao write -field=token auth/jwt/login role=read-only jwt=$VAULT_ID_TOKEN)"
+    - apk --no-cache add jq
+    - alias convert-report="jq -r '([.resource_changes[]?.change.actions?]|flatten)|{\"create\":(map(select(.==\"create\"))|length),\"update\":(map(select(.==\"update\"))|length),\"delete\":(map(select(.==\"delete\"))|length)}'"
+    - cd ${ENV}
+    - source .envrc
+    - export TF_HTTP_USERNAME="gitlab-ci-token"
+    - export TF_HTTP_PASSWORD="${CI_JOB_TOKEN}"
+    - mkdir -p "$CI_PROJECT_DIR/$ENV"
+
+.plan_base:
+  artifacts:
+    reports:
+      terraform: $PLAN_JSON
+    name: "tofu-plan"
+    paths:
+      - "$PLAN"
+    expire_in: 1 hour
+
+.manual_on_default_branch:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+    - when: never

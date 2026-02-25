@@ -7,12 +7,8 @@ stages:
 
 # Linting
 include:
-  - local: .gitlab/ci/lint/lint.yml
-  - local: .gitlab/ci/lint/cloudflare.yml
-  - local: .gitlab/ci/lint/mikrotik.yml
-  - local: .gitlab/ci/lint/openbao.yml
-  - local: .gitlab/ci/lint/proxmox.yml
-
-# Plan
-
-# Deploy
+  - local: .gitlab/ci/common.yml
+  - local: .gitlab/ci/env/cloudflare.yml
+  - local: .gitlab/ci/env/mikrotik.yml
+  - local: .gitlab/ci/env/openbao.yml
+  - local: .gitlab/ci/env/proxmox.yml

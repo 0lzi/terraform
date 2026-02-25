@@ -5,9 +5,9 @@ terraform {
       source  = "hashicorp/vault"
       version = "5.0.0"
     }
-    routeros = {
-      source  = "terraform-routeros/routeros"
-      version = "1.99.0"
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "5.7.1"
     }
   }
   backend "http" {
@@ -15,15 +15,14 @@ terraform {
     lock_address   = "https://${var.GITLAB_HOST}/api/v4/projects/${var.PROJECT_ID}/terraform/state/${var.STATE_NAME}/lock"
     unlock_address = "https://${var.GITLAB_HOST}/api/v4/projects/${var.PROJECT_ID}/terraform/state/${var.STATE_NAME}/lock"
   }
+
 }
 
-data "vault_generic_secret" "routeros" {
-  path = "kv/terraform/routeros"
+data "vault_generic_secret" "cloudflare" {
+  path = "kv/terraform/cloudflare"
 }
 
-provider "routeros" {
-  hosturl  = data.vault_generic_secret.routeros.data["mikrotik_host_url"]
-  username = data.vault_generic_secret.routeros.data["mikrotik_username"]
-  password = data.vault_generic_secret.routeros.data["mikrotik_password"]
-  insecure = true
+provider "cloudflare" {
+  email     = data.vault_generic_secret.cloudflare.data["cloudflare_email"]
+  api_token = data.vault_generic_secret.cloudflare.data["cloudflare_api_token"]
 }

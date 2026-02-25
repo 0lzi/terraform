@@ -18,7 +18,7 @@ resource "routeros_ip_firewall_addr_list" "rfc1918" {
 # ==================================================================
 
 resource "routeros_ip_firewall_addr_list" "wan" {
-  address = var.wan_address
+  address = data.vault_generic_secret.routeros.data["wan_address"]
   list    = "WAN"
   comment = "WAN"
 }

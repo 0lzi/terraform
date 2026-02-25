@@ -1,8 +1,0 @@
----
-.tflint:
-  stage: lint
-  tags:
-    - terraform
-
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

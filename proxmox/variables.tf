@@ -3,26 +3,15 @@ variable "vm_template" {
   type = string
 }
 
-variable "mikrotik_host_url" {
-  type        = string
-  sensitive   = false
-  description = "The URL of the MikroTik device."
+variable "GITLAB_HOST" {
+  type = string
 }
 
-variable "mikrotik_username" {
-  type        = string
-  sensitive   = true
-  description = "The username for accessing the MikroTik device."
+variable "PROJECT_ID" {
+  type = string
 }
 
-variable "mikrotik_password" {
-  type        = string
-  sensitive   = true
-  description = "The password for accessing the MikroTik device."
+variable "STATE_NAME" {
+  type = string
 }
 
-variable "mikrotik_insecure" {
-  type        = bool
-  default     = true
-  description = "Whether to allow insecure connections to the MikroTik device."
-}

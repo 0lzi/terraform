@@ -77,7 +77,11 @@ resource "proxmox_vm_qemu" "alloy" {
   ciuser             = "oli"
   sshkeys            = local.ssh_keys
   ipconfig0          = "ip=dhcp"
-
+  startup_shutdown {
+    order = -1
+    shutdown_timeout = -1
+    startup_delay = -1
+  }
   # VGA
   vga {
     type = "std"
@@ -137,7 +141,11 @@ resource "proxmox_vm_qemu" "tmux" {
   ciuser             = "oli"
   sshkeys            = local.ssh_keys
   ipconfig0          = "ip=dhcp"
-
+  startup_shutdown {
+    order = -1
+    shutdown_timeout = -1
+    startup_delay = -1
+  }
   # VGA
   vga {
     type = "std"
@@ -198,6 +206,12 @@ resource "proxmox_vm_qemu" "consul_hosts" {
   ciuser             = "oli"
   sshkeys            = local.ssh_keys
   ipconfig0          = "ip=dhcp"
+
+  startup_shutdown {
+    order = -1
+    shutdown_timeout = -1
+    startup_delay = -1
+  }
 
   # VGA
   vga {
@@ -262,6 +276,11 @@ resource "proxmox_vm_qemu" "vault_hosts" {
   sshkeys            = local.ssh_keys
   ipconfig0          = "ip=dhcp"
 
+  startup_shutdown {
+    order = -1
+    shutdown_timeout = -1
+    startup_delay = -1
+  }
   # VGA
   vga {
     type = "std"
@@ -324,6 +343,11 @@ resource "proxmox_vm_qemu" "docker_hosts" {
   sshkeys            = local.ssh_keys
   ipconfig0          = "ip=dhcp"
 
+  startup_shutdown {
+    order = -1
+    shutdown_timeout = -1
+    startup_delay = -1
+  }
   # VGA
   vga {
     type = "std"
@@ -383,6 +407,11 @@ resource "proxmox_vm_qemu" "gitlab" {
   sshkeys            = local.ssh_keys
   ipconfig0          = "ip=dhcp"
 
+  startup_shutdown {
+    order = -1
+    shutdown_timeout = -1
+    startup_delay = -1
+  }
   # VGA
   vga {
     type = "std"
@@ -449,6 +478,11 @@ resource "proxmox_vm_qemu" "gitlab-runner-1" {
   sshkeys            = local.ssh_keys
   ipconfig0          = "ip=dhcp"
 
+  startup_shutdown {
+    order = -1
+    shutdown_timeout = -1
+    startup_delay = -1
+  }
   # VGA
   vga {
     type = "std"
@@ -505,6 +539,12 @@ resource "proxmox_vm_qemu" "home-assistant" {
   ipconfig0          = "ip=dhcp"
   bios               = "ovmf"
   start_at_node_boot = true
+
+  startup_shutdown {
+    order = -1
+    shutdown_timeout = -1
+    startup_delay = -1
+  }
   # VGA
   vga {
     type = "std"

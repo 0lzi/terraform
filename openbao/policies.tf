@@ -12,6 +12,11 @@ data "vault_policy_document" "readonly" {
     capabilities = ["read"]
     description  = "allow readonly on secrets"
   }
+  rule {
+    path         = "auth/token/create"
+    capabilities = ["update"]
+    description  = "allow creation of child tokens"
+  }
 }
 
 resource "vault_policy" "all" {
