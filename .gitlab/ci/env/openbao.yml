@@ -16,6 +16,18 @@ plan-openbao:
     - tofu plan -out=$PLAN
     - tofu show -json $PLAN | convert-report > $PLAN_JSON
 
+pre-deploy-openbao:
+  extends:
+    - .base
+    - .plan_base
+    - .manual_on_default_branch
+  variables:
+    ENV: openbao
+  stage: plan
+  script:
+    - tofu init -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE"
+    - tofu plan -out=$PLAN
+
 deploy-openbao:
   extends:
     - .base
@@ -24,7 +36,7 @@ deploy-openbao:
     ENV: openbao
   stage: deploy
   needs:
-    - job: plan-openbao
+    - job: pre-deploy-openbao
       artifacts: true
   script:
     - tofu init -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE"

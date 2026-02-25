@@ -16,6 +16,18 @@ plan-mikrotik:
     - tofu plan -out=$PLAN
     - tofu show -json $PLAN | convert-report > $PLAN_JSON
 
+pre-deploy-mikrotik:
+  extends:
+    - .base
+    - .plan_base
+    - .manual_on_default_branch
+  variables:
+    ENV: mikrotik
+  stage: plan
+  script:
+    - tofu init -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE"
+    - tofu plan -out=$PLAN
+
 deploy-mikrotik:
   extends:
     - .base
@@ -24,7 +36,7 @@ deploy-mikrotik:
     ENV: mikrotik
   stage: deploy
   needs:
-    - job: plan-mikrotik
+    - job: pre-deploy-mikrotik
       artifacts: true
   script:
     - tofu init -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE"
