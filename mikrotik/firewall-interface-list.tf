@@ -6,7 +6,7 @@ resource "routeros_interface_list" "wan" {
 }
 
 resource "routeros_interface_list_member" "wan_ether7" {
-  interface = "ether7"
+  interface = "vlan4000"
   list      = routeros_interface_list.wan.name
 }
 resource "routeros_interface_list_member" "pppoe-out1" {
@@ -30,6 +30,7 @@ resource "routeros_interface_list_member" "interface" {
     "ether4"       = {}
     "ether5"       = {}
     "ether6"       = {}
+    "ether7"       = {}
     "ether8"       = {}
     "sfp-sfpplus1" = {}
     "sfp-sfpplus2" = {}

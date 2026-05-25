@@ -2,7 +2,7 @@
 # PPPOE Client for Internet
 # ===========================================
 resource "routeros_interface_pppoe_client" "pnet" {
-  interface         = "ether7"
+  interface         = "vlan4000"
   name              = "pppoe-out1"
   comment           = "PlusNet"
   add_default_route = true

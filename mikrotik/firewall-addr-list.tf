@@ -35,6 +35,7 @@ resource "routeros_ip_firewall_addr_list" "lan" {
     "vlan40"       = { address = routeros_ip_dhcp_server_network.iot.address  , list = "IOT" }
     "vlan50"       = { address = routeros_ip_dhcp_server_network.home.address , list = "HOME" }
     "vlan100"      = { address = routeros_ip_dhcp_server_network.guest.address, list = "GUEST" }
+    "vlan4000"      = { address = data.vault_generic_secret.routeros.data["wan_address"], list = "WAN" }
   }
   address = each.value.address
   list    = each.value.list

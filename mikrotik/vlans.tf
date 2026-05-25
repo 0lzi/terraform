@@ -9,6 +9,7 @@ resource "routeros_interface_vlan" "interface_vlan" {
     "vlan40"       = { comment = "IoT"   , vlan_id = 40  , interface = "bridge" }
     "vlan50"       = { comment = "HOME"  , vlan_id = 50  , interface = "bridge" }
     "vlan100"      = { comment = "Guest" , vlan_id = 100 , interface = "bridge" }
+    "vlan4000"      = { comment = "WAN" , vlan_id = 4000 , interface = "bridge" }
    }
   name      = each.key
   interface = each.value.interface
@@ -100,5 +101,18 @@ resource "routeros_interface_bridge_vlan" "guest_vlan" {
     "ether3",
     "ether5",
     "ether6"
+  ]
+}
+
+resource "routeros_interface_bridge_vlan" "wan_vlan" {
+  comment = "WAN"
+  bridge   = "bridge"
+  vlan_ids = ["4000"]
+  tagged = [
+    "bridge",
+    "ether1",
+    "ether2",
+    "ether3",
+    "ether7"
   ]
 }
