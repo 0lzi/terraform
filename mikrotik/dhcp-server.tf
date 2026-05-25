@@ -16,10 +16,10 @@ resource "routeros_ip_dhcp_server_network" "mgmt" {
 }
 
 resource "routeros_ip_dhcp_server" "mgmt" {
-  name         = routeros_ip_pool.mgmt.name
-  comment      = routeros_ip_pool.mgmt.comment
-  address_pool = routeros_ip_pool.mgmt.name
-  interface    = "vlan10"
+  name                      = routeros_ip_pool.mgmt.name
+  comment                   = routeros_ip_pool.mgmt.comment
+  address_pool              = routeros_ip_pool.mgmt.name
+  interface                 = "vlan10"
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
@@ -41,10 +41,10 @@ resource "routeros_ip_dhcp_server_network" "prod" {
 }
 
 resource "routeros_ip_dhcp_server" "prod" {
-  name         = routeros_ip_pool.prod.name
-  comment      = routeros_ip_pool.prod.comment
-  address_pool = routeros_ip_pool.prod.name
-  interface    = "vlan20"
+  name                      = routeros_ip_pool.prod.name
+  comment                   = routeros_ip_pool.prod.comment
+  address_pool              = routeros_ip_pool.prod.name
+  interface                 = "vlan20"
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
@@ -66,10 +66,10 @@ resource "routeros_ip_dhcp_server_network" "dev" {
 }
 
 resource "routeros_ip_dhcp_server" "dev" {
-  name         = routeros_ip_pool.dev.name
-  comment      = routeros_ip_pool.dev.comment
-  address_pool = routeros_ip_pool.dev.name
-  interface    = "vlan30"
+  name                      = routeros_ip_pool.dev.name
+  comment                   = routeros_ip_pool.dev.comment
+  address_pool              = routeros_ip_pool.dev.name
+  interface                 = "vlan30"
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
@@ -90,10 +90,10 @@ resource "routeros_ip_dhcp_server_network" "iot" {
 }
 
 resource "routeros_ip_dhcp_server" "iot" {
-  name         = routeros_ip_pool.iot.name
-  comment      = routeros_ip_pool.iot.comment
-  address_pool = routeros_ip_pool.iot.name
-  interface    = "vlan40"
+  name                      = routeros_ip_pool.iot.name
+  comment                   = routeros_ip_pool.iot.comment
+  address_pool              = routeros_ip_pool.iot.name
+  interface                 = "vlan40"
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
@@ -115,10 +115,10 @@ resource "routeros_ip_dhcp_server_network" "home" {
 }
 
 resource "routeros_ip_dhcp_server" "home" {
-  name         = routeros_ip_pool.home.name
-  comment      = routeros_ip_pool.home.comment
-  address_pool = routeros_ip_pool.home.name
-  interface    = "vlan50"
+  name                      = routeros_ip_pool.home.name
+  comment                   = routeros_ip_pool.home.comment
+  address_pool              = routeros_ip_pool.home.name
+  interface                 = "vlan50"
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
@@ -139,9 +139,9 @@ resource "routeros_ip_dhcp_server_network" "guest" {
 }
 
 resource "routeros_ip_dhcp_server" "guest" {
-  name         = routeros_ip_pool.guest.name
-  comment      = routeros_ip_pool.guest.comment
-  address_pool = routeros_ip_pool.guest.name
-  interface    = "vlan100"
+  name                      = routeros_ip_pool.guest.name
+  comment                   = routeros_ip_pool.guest.comment
+  address_pool              = routeros_ip_pool.guest.name
+  interface                 = "vlan100"
   dynamic_lease_identifiers = "client-mac,client-id"
 }

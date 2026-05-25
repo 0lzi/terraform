@@ -2,15 +2,15 @@
 # VLAN interfaces
 # ==================================================================
 resource "routeros_interface_vlan" "interface_vlan" {
-   for_each = {
-    "vlan10"       = { comment = "MGMT"  , vlan_id = 10  , interface = "bridge" }
-    "vlan20"       = { comment = "PROD"  , vlan_id = 20  , interface = "bridge" }
-    "vlan30"       = { comment = "DEV"   , vlan_id = 30  , interface = "bridge" }
-    "vlan40"       = { comment = "IoT"   , vlan_id = 40  , interface = "bridge" }
-    "vlan50"       = { comment = "HOME"  , vlan_id = 50  , interface = "bridge" }
-    "vlan100"      = { comment = "Guest" , vlan_id = 100 , interface = "bridge" }
-    "vlan4000"      = { comment = "WAN" , vlan_id = 4000 , interface = "bridge" }
-   }
+  for_each = {
+    "vlan10"   = { comment = "MGMT", vlan_id = 10, interface = "bridge" }
+    "vlan20"   = { comment = "PROD", vlan_id = 20, interface = "bridge" }
+    "vlan30"   = { comment = "DEV", vlan_id = 30, interface = "bridge" }
+    "vlan40"   = { comment = "IoT", vlan_id = 40, interface = "bridge" }
+    "vlan50"   = { comment = "HOME", vlan_id = 50, interface = "bridge" }
+    "vlan100"  = { comment = "Guest", vlan_id = 100, interface = "bridge" }
+    "vlan4000" = { comment = "WAN", vlan_id = 4000, interface = "bridge" }
+  }
   name      = each.key
   interface = each.value.interface
   comment   = each.value.comment
@@ -21,7 +21,7 @@ resource "routeros_interface_vlan" "interface_vlan" {
 # Bridge VLANs
 # ==================================================================
 resource "routeros_interface_bridge_vlan" "mgmt_vlan" {
-  comment = "MGMT"
+  comment  = "MGMT"
   bridge   = "bridge"
   vlan_ids = ["10"]
   tagged = [
@@ -35,7 +35,7 @@ resource "routeros_interface_bridge_vlan" "mgmt_vlan" {
 }
 
 resource "routeros_interface_bridge_vlan" "prod_vlan" {
-  comment = "PROD"
+  comment  = "PROD"
   bridge   = "bridge"
   vlan_ids = ["20"]
   tagged = [
@@ -49,7 +49,7 @@ resource "routeros_interface_bridge_vlan" "prod_vlan" {
 }
 
 resource "routeros_interface_bridge_vlan" "dev_vlan" {
-  comment = "DEV"
+  comment  = "DEV"
   bridge   = "bridge"
   vlan_ids = ["30"]
   tagged = [
@@ -63,7 +63,7 @@ resource "routeros_interface_bridge_vlan" "dev_vlan" {
 }
 
 resource "routeros_interface_bridge_vlan" "iot_vlan" {
-  comment = "IoT"
+  comment  = "IoT"
   bridge   = "bridge"
   vlan_ids = ["40"]
   tagged = [
@@ -77,7 +77,7 @@ resource "routeros_interface_bridge_vlan" "iot_vlan" {
 }
 
 resource "routeros_interface_bridge_vlan" "home_vlan" {
-  comment = "HOME"
+  comment  = "HOME"
   bridge   = "bridge"
   vlan_ids = ["50"]
   tagged = [
@@ -91,7 +91,7 @@ resource "routeros_interface_bridge_vlan" "home_vlan" {
 }
 
 resource "routeros_interface_bridge_vlan" "guest_vlan" {
-  comment = "Guest"
+  comment  = "Guest"
   bridge   = "bridge"
   vlan_ids = ["100"]
   tagged = [
@@ -105,7 +105,7 @@ resource "routeros_interface_bridge_vlan" "guest_vlan" {
 }
 
 resource "routeros_interface_bridge_vlan" "wan_vlan" {
-  comment = "WAN"
+  comment  = "WAN"
   bridge   = "bridge"
   vlan_ids = ["4000"]
   tagged = [

@@ -22,7 +22,7 @@ resource "routeros_interface_list" "lan" {
 }
 
 resource "routeros_interface_list_member" "interface" {
-   for_each = {
+  for_each = {
     "bridge"       = {}
     "ether1"       = {}
     "ether2"       = {}

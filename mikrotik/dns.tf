@@ -2,9 +2,9 @@
 # Upstream DNS for Mikrotik
 # =====================================
 resource "routeros_dns" "dns-server" {
-  allow_remote_requests = true
-  servers = [ "1.1.1.1", "8.8.8.8" ]
-  cache_size = 40000
+  allow_remote_requests  = true
+  servers                = ["1.1.1.1", "8.8.8.8"]
+  cache_size             = 40000
   max_concurrent_queries = 200
 }
 
@@ -99,73 +99,73 @@ resource "routeros_ip_dns_record" "traefik" {
 }
 
 resource "routeros_ip_dns_record" "vault" {
-  name    = "vault.0lzi.com"
+  name  = "vault.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "consul" {
-  name    = "consul.0lzi.com"
+  name  = "consul.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "immich" {
-  name    = "photos.0lzi.com"
+  name  = "photos.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "proxmox" {
-  name    = "pve.0lzi.com"
+  name  = "pve.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "gitlab" {
-  name    = "gitlab.0lzi.com"
+  name  = "gitlab.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "gitlab-registry" {
-  name    = "registry.gitlab.0lzi.com"
+  name  = "registry.gitlab.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "grafana" {
-  name    = "grafana.0lzi.com"
+  name  = "grafana.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "home-assistant" {
-  name    = "home-assistant.0lzi.com"
+  name  = "home-assistant.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "loki" {
-  name    = "loki.0lzi.com"
+  name  = "loki.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "mimir" {
-  name    = "mimir.0lzi.com"
+  name  = "mimir.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "nextcloud" {
-  name    = "nextcloud.0lzi.com"
+  name  = "nextcloud.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }
 
 resource "routeros_ip_dns_record" "crowdsec" {
-  name    = "crowdsec.0lzi.com"
+  name  = "crowdsec.0lzi.com"
   cname = routeros_ip_dns_record.traefik.name
-  type    = "CNAME"
+  type  = "CNAME"
 }

@@ -3,10 +3,10 @@
 # ==================================================================
 
 resource "routeros_ip_firewall_addr_list" "rfc1918" {
-   for_each = {
-    "1"       = { address = "192.168.0.0/16" , list = "RFC1918" }
-    "2"       = { address = "10.0.0.0/8" , list = "RFC1918" }
-    "3"       = { address = "172.16.0.0/12" , list = "RFC1918" }
+  for_each = {
+    "1" = { address = "192.168.0.0/16", list = "RFC1918" }
+    "2" = { address = "10.0.0.0/8", list = "RFC1918" }
+    "3" = { address = "172.16.0.0/12", list = "RFC1918" }
   }
   address = each.value.address
   list    = each.value.list
@@ -28,14 +28,14 @@ resource "routeros_ip_firewall_addr_list" "wan" {
 # ==================================================================
 
 resource "routeros_ip_firewall_addr_list" "lan" {
-   for_each = {
-    "vlan10"       = { address = routeros_ip_dhcp_server_network.mgmt.address , list = "MGMT" }
-    "vlan20"       = { address = routeros_ip_dhcp_server_network.prod.address , list = "PROD" }
-    "vlan30"       = { address = routeros_ip_dhcp_server_network.dev.address  , list = "DEV" }
-    "vlan40"       = { address = routeros_ip_dhcp_server_network.iot.address  , list = "IOT" }
-    "vlan50"       = { address = routeros_ip_dhcp_server_network.home.address , list = "HOME" }
-    "vlan100"      = { address = routeros_ip_dhcp_server_network.guest.address, list = "GUEST" }
-    "vlan4000"      = { address = data.vault_generic_secret.routeros.data["wan_address"], list = "WAN" }
+  for_each = {
+    "vlan10"   = { address = routeros_ip_dhcp_server_network.mgmt.address, list = "MGMT" }
+    "vlan20"   = { address = routeros_ip_dhcp_server_network.prod.address, list = "PROD" }
+    "vlan30"   = { address = routeros_ip_dhcp_server_network.dev.address, list = "DEV" }
+    "vlan40"   = { address = routeros_ip_dhcp_server_network.iot.address, list = "IOT" }
+    "vlan50"   = { address = routeros_ip_dhcp_server_network.home.address, list = "HOME" }
+    "vlan100"  = { address = routeros_ip_dhcp_server_network.guest.address, list = "GUEST" }
+    "vlan4000" = { address = data.vault_generic_secret.routeros.data["wan_address"], list = "WAN" }
   }
   address = each.value.address
   list    = each.value.list
@@ -46,10 +46,10 @@ resource "routeros_ip_firewall_addr_list" "lan" {
 # Firewall Address List PVE
 # ==================================================================
 resource "routeros_ip_firewall_addr_list" "pve" {
-   for_each = {
-    "pve1"       = { address = "10.18.10.10" , list = "PVE" }
-    "pve2"       = { address = "10.18.10.11" , list = "PVE" }
-    "pve3"       = { address = "10.18.10.12" , list = "PVE" }
+  for_each = {
+    "pve1" = { address = "10.18.10.10", list = "PVE" }
+    "pve2" = { address = "10.18.10.11", list = "PVE" }
+    "pve3" = { address = "10.18.10.12", list = "PVE" }
   }
   address = each.value.address
   list    = each.value.list
