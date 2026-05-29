@@ -17,3 +17,8 @@ override.tf.json
 # Direnv
 .direnv
 .envrc-secrets
+
+# Certs
+*.crt
+*.pem
+*.csr
