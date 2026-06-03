@@ -31,3 +31,14 @@ resource "routeros_ip_dhcp_server_lease" "immich-home" {
   server      = "HOME"
 }
 
+resource "routeros_ip_dhcp_server_lease" "desktop" {
+  address     = "10.18.10.22"
+  mac_address = "D8:EC:5E:BC:D5:AE"
+  server      = "MGMT"
+}
+
+resource "routeros_ip_dhcp_server_lease" "max-pc" {
+  address     = "10.18.50.34"
+  mac_address = "B4:2E:99:60:D6:5B"
+  server      = "HOME"
+}

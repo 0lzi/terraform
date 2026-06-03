@@ -25,6 +25,18 @@ resource "routeros_ip_dns_adlist" "dns-blocklist" {
 # =====================================
 # DNS Entries
 # =====================================
+resource "routeros_ip_dns_record" "desktop" {
+  name    = "desktop.0lzi.com"
+  address = routeros_ip_dhcp_server_lease.desktop.address
+  type    = "A"
+}
+
+resource "routeros_ip_dns_record" "max-pc" {
+  name    = "max-pc.0lzi.internal"
+  address = routeros_ip_dhcp_server_lease.max-pc.address
+  type    = "A"
+}
+
 resource "routeros_ip_dns_record" "lancache" {
   name    = "lancache.0lzi.com"
   address = routeros_ip_dhcp_server_lease.lancache.address
