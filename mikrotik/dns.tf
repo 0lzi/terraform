@@ -79,6 +79,12 @@ resource "routeros_ip_dns_record" "ap_01" {
   type    = "A"
 }
 
+resource "routeros_ip_dns_record" "cisco_router" {
+  name    = "cisco-router.0lzi.internal"
+  address = "10.18.10.3"
+  type    = "A"
+}
+
 resource "routeros_ip_dns_record" "traefik" {
   name    = "traefik.0lzi.com"
   address = "10.18.20.200"
