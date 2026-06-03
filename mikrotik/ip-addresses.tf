@@ -35,7 +35,6 @@ resource "routeros_ip_address" "prod" {
   comment   = "PROD"
 }
 
-
 #resource "routeros_ip_address" "prod-vrrp" {
 #  address   = "10.18.20.254/24"
 #  interface = "prod-vrrp"
@@ -52,7 +51,6 @@ resource "routeros_ip_address" "dev" {
   network   = "10.18.30.0"
   comment   = "DEV"
 }
-
 
 #resource "routeros_ip_address" "dev-vrrp" {
 #  address   = "10.18.30.254/24"
@@ -71,7 +69,6 @@ resource "routeros_ip_address" "iot" {
   comment   = "IoT"
 }
 
-
 #resource "routeros_ip_address" "iot-vrrp" {
 #  address   = "10.18.40.254/24"
 #  interface = "iot-vrrp"
@@ -89,7 +86,6 @@ resource "routeros_ip_address" "home" {
   comment   = "HOME"
 }
 
-
 #resource "routeros_ip_address" "home-vrrp" {
 #  address   = "10.18.50.254/24"
 #  interface = "home-vrrp"
@@ -106,7 +102,6 @@ resource "routeros_ip_address" "guest" {
   network   = "192.168.100.0"
   comment   = "Guest"
 }
-
 
 #resource "routeros_ip_address" "guest-vrrp" {
 #  address   = "192.168.100.254/24"

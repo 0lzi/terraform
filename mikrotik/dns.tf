@@ -25,19 +25,6 @@ resource "routeros_ip_dns_adlist" "dns-blocklist" {
 # =====================================
 # DNS Entries
 # =====================================
-
-resource "routeros_ip_dns_record" "pi_hole_1" {
-  name    = "pi-hole-1.0lzi.com"
-  address = routeros_ip_dhcp_server_lease.pi_hole_1.address
-  type    = "A"
-}
-
-resource "routeros_ip_dns_record" "pi_hole_2" {
-  name    = "pi-hole-2.0lzi.com"
-  address = routeros_ip_dhcp_server_lease.pi_hole_2.address
-  type    = "A"
-}
-
 resource "routeros_ip_dns_record" "lancache" {
   name    = "lancache.0lzi.com"
   address = routeros_ip_dhcp_server_lease.lancache.address

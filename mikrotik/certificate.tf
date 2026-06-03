@@ -20,7 +20,7 @@ resource "routeros_system_certificate" "local-root-ca-cert" {
 # CERTIFICATES
 # ===================================
 resource "routeros_system_certificate" "webfig_1" {
-  name        = "Webfig"
+  name        = "www-ssl"
   common_name = "Mikrotik"
   subject_alt_name = "DNS:mikrotik.0lzi.internal,IP:10.18.10.1"
   country      = "GB"
