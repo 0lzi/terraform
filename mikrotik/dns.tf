@@ -85,6 +85,12 @@ resource "routeros_ip_dns_record" "cisco_router" {
   type    = "A"
 }
 
+resource "routeros_ip_dns_record" "loft_switch" {
+  name    = "loft-switch.0lzi.internal"
+  address = "10.18.50.32"
+  type    = "A"
+}
+
 resource "routeros_ip_dns_record" "traefik" {
   name    = "traefik.0lzi.com"
   address = "10.18.20.200"

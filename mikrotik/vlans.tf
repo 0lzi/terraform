@@ -86,7 +86,8 @@ resource "routeros_interface_bridge_vlan" "home_vlan" {
     "ether2",
     "ether3",
     "ether5",
-    "ether6"
+    "ether6",
+    "ether7"
   ]
 }
 
@@ -109,7 +110,6 @@ resource "routeros_interface_bridge_vlan" "wan_vlan" {
   bridge   = "bridge"
   vlan_ids = ["4000"]
   tagged = [
-    "bridge",
     "ether1",
     "ether2",
     "ether3",
