@@ -12,7 +12,7 @@ resource "routeros_ip_dhcp_server_network" "mgmt" {
   comment    = routeros_ip_pool.mgmt.comment
   gateway    = "10.18.10.1"
   dns_server = ["10.18.10.1"]
-  domain     = "0lzi.internal"
+  domain     = "mgmt.0lzi.com"
 }
 
 resource "routeros_ip_dhcp_server" "mgmt" {
@@ -22,7 +22,20 @@ resource "routeros_ip_dhcp_server" "mgmt" {
   interface    = "vlan10"
   dynamic_lease_identifiers = "client-mac,client-id"
 }
-
+# DNS Forwarder for mgmt zone
+# resource "routeros_ip_dns_forwarders" "mgmt" {
+#   disabled        = true
+#   dns_servers     = ["1.1.1.1"]
+#   name            = "mgmt"
+#   verify_doh_cert = "false"
+# }
+#
+# resource "routeros_dns_record" "mgmtfwd_record" {
+#   name       = "mgmt.0lzi.com"
+#   forward_to = "mgmt"
+#   type       = "FWD"
+# }
+#
 # =====================================
 # PROD DHCP
 # =====================================
@@ -48,6 +61,20 @@ resource "routeros_ip_dhcp_server" "prod" {
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
+# DNS Forwarder for prod zone
+# resource "routeros_ip_dns_forwarders" "prod" {
+#   disabled        = true
+#   dns_servers     = ["1.1.1.1"]
+#   name            = "prod"
+#   verify_doh_cert = "false"
+# }
+#
+# resource "routeros_dns_record" "prodwd_record" {
+#   name       = "0lzi.com"
+#   forward_to = "prod"
+#   type       = "FWD"
+# }
+#
 # =====================================
 # DEV DHCP
 # =====================================
@@ -62,7 +89,7 @@ resource "routeros_ip_dhcp_server_network" "dev" {
   comment    = routeros_ip_pool.dev.comment
   gateway    = "10.18.30.1"
   dns_server = ["10.18.30.1"]
-  domain     = "0lzi.internal"
+  domain     = "dev.0lzi.com"
 }
 
 resource "routeros_ip_dhcp_server" "dev" {
@@ -73,6 +100,20 @@ resource "routeros_ip_dhcp_server" "dev" {
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
+# DNS Forwarder for dev zone
+# resource "routeros_ip_dns_forwarders" "dev" {
+#   disabled        = true
+#   dns_servers     = ["1.1.1.1"]
+#   name            = "dev"
+#   verify_doh_cert = "false"
+# }
+#
+# resource "routeros_dns_record" "devfwd_record" {
+#   name       = "dev.0lzi.com"
+#   forward_to = "dev"
+#   type       = "FWD"
+# }
+#
 # =====================================
 # IoT DHCP
 # =====================================
@@ -87,6 +128,7 @@ resource "routeros_ip_dhcp_server_network" "iot" {
   comment    = routeros_ip_pool.iot.comment
   gateway    = "10.18.40.1"
   dns_server = ["10.18.40.1"]
+  domain     = "iot.0lzi.com"
 }
 
 resource "routeros_ip_dhcp_server" "iot" {
@@ -97,6 +139,20 @@ resource "routeros_ip_dhcp_server" "iot" {
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
+# DNS Forwarder for iot zone
+# resource "routeros_ip_dns_forwarders" "iot" {
+#   disabled        = true
+#   dns_servers     = ["1.1.1.1"]
+#   name            = "iot"
+#   verify_doh_cert = "false"
+# }
+#
+# resource "routeros_dns_record" "iotfwd_record" {
+#   name       = "iot.0lzi.com"
+#   forward_to = "iot"
+#   type       = "FWD"
+# }
+#
 # =====================================
 # HOME DHCP
 # =====================================
@@ -111,7 +167,7 @@ resource "routeros_ip_dhcp_server_network" "home" {
   comment    = routeros_ip_pool.home.comment
   gateway    = "10.18.50.1"
   dns_server = ["10.18.50.1"]
-  domain     = "internal"
+  domain     = "home.0lzi.com"
 }
 
 resource "routeros_ip_dhcp_server" "home" {
@@ -122,6 +178,20 @@ resource "routeros_ip_dhcp_server" "home" {
   dynamic_lease_identifiers = "client-mac,client-id"
 }
 
+# DNS Forwarder for home zone
+# resource "routeros_ip_dns_forwarders" "home" {
+#   disabled        = true
+#   dns_servers     = ["1.1.1.1"]
+#   name            = "home"
+#   verify_doh_cert = "false"
+# }
+#
+# resource "routeros_dns_record" "homefwd_record" {
+#   name       = "home.0lzi.com"
+#   forward_to = "home"
+#   type       = "FWD"
+# }
+#
 # =====================================
 # GUEST DHCP
 # =====================================

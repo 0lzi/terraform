@@ -108,7 +108,7 @@ resource "routeros_ip_firewall_filter" "home_to_desktop" {
   chain            = "forward"
   comment          = "Allow Max PC to desktop for STEAM library"
   src_address      = routeros_ip_dns_record.max-pc.address
-  dst_address      = routeros_ip_dns_record.desktop.address
+  dst_address      = routeros_ip_dns_record.lancache.address
   place_before     = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
 }
 
