@@ -37,7 +37,7 @@ data "vault_policy_document" "approle_restart" {
 
 data "vault_policy_document" "pki" {
   rule {
-    path         = "pki_int/issue/0lzi-dot-internal-com"
+    path         = "pki_int/issue/0lzi-dot-com"
     capabilities = ["create", "update", ]
     description  = "Create and update Certificates"
   }
