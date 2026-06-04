@@ -737,19 +737,19 @@ resource "routeros_ip_dns_record" "gitlab-runner-1" {
 }
 
 resource "routeros_ip_dns_record" "gitlab-internal" {
-  name    = "gitlab.0lzi.internal"
+  name    = "gitlab.prod.0lzi.com"
   address = routeros_ip_dhcp_server_lease.gitlab.address
   type    = "A"
 }
 
 resource "routeros_ip_dns_record" "registry-gitlab-internal" {
-  name    = "registry.gitlab.0lzi.internal"
+  name    = "registry.gitlab.prod.0lzi.com"
   address = routeros_ip_dhcp_server_lease.gitlab.address
   type    = "A"
 }
 
 resource "routeros_ip_dns_record" "home-assistant-internal" {
-  name    = "home-assistant.0lzi.internal"
+  name    = "home-assistant.iot.0lzi.com"
   address = routeros_ip_dhcp_server_lease.home-assistant.address
   type    = "A"
 }
