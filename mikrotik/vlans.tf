@@ -30,7 +30,8 @@ resource "routeros_interface_bridge_vlan" "mgmt_vlan" {
     "ether2",
     "ether3",
     "ether5",
-    "ether6"
+    "ether6",
+    "sfp-sfpplus1"
   ]
 }
 
@@ -87,7 +88,8 @@ resource "routeros_interface_bridge_vlan" "home_vlan" {
     "ether3",
     "ether5",
     "ether6",
-    "ether7"
+    "ether7",
+    "sfp-sfpplus1"
   ]
 }
 

@@ -37,6 +37,18 @@ resource "routeros_ip_dhcp_server_lease" "desktop" {
   server      = "MGMT"
 }
 
+resource "routeros_ip_dhcp_server_lease" "desktop-10g" {
+  address     = "10.18.10.26"
+  mac_address = "A0:36:9F:F4:C7:70"
+  server      = "MGMT"
+}
+
+resource "routeros_ip_dhcp_server_lease" "desktop-home" {
+  address     = "10.18.50.35"
+  mac_address = "D8:EC:5E:BC:D5:AE"
+  server      = "MGMT"
+}
+
 resource "routeros_ip_dhcp_server_lease" "max-pc" {
   address     = "10.18.50.34"
   mac_address = "B4:2E:99:60:D6:5B"

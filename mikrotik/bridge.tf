@@ -20,7 +20,7 @@ resource "routeros_interface_bridge_port" "bridge_ports" {
     "ether6"       = { comment = "defconf", pvid = "1" }
     "ether7"       = { comment = "defconf", pvid = "1" }
     "ether8"       = { comment = "defconf", pvid = "10" }
-    "sfp-sfpplus1" = { comment = "defconf", pvid = "10" }
+    "sfp-sfpplus1" = { comment = "defconf", pvid = "1" }
     "sfp-sfpplus2" = { comment = "defconf", pvid = "1" }
   }
   bridge    = "bridge"
