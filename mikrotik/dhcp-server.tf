@@ -110,7 +110,7 @@ resource "routeros_ip_dhcp_server_network" "home" {
   address    = "10.18.50.0/24"
   comment    = routeros_ip_pool.home.comment
   gateway    = "10.18.50.1"
-  dns_server = ["10.18.50.1"]
+  dns_server = ["1.1.1.3","1.0.0.3"]
   domain     = "internal"
 }
 
