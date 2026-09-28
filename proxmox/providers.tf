@@ -7,7 +7,7 @@ terraform {
     }
     proxmox = {
       source  = "Telmate/proxmox"
-      version = "3.0.2-rc06"
+      version = "3.0.2-rc10"
     }
     routeros = {
       source  = "terraform-routeros/routeros"
