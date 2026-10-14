@@ -10,6 +10,11 @@ dns_record = {
     type    = "CNAME"
     content = "0lzi.com"
   }
+  "mumble" = {
+    name    = "mumble.0lzi.com"
+    type    = "CNAME"
+    content = "0lzi.com"
+  }
   "nextcloud" = {
     name    = "nextcloud.0lzi.com"
     type    = "CNAME"

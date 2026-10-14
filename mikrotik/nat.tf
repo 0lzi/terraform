@@ -56,3 +56,28 @@ resource "routeros_ip_firewall_nat" "hairpin_nat_01" {
   protocol         = "tcp"
   out_interface    = "bridge"
 }
+
+resource "routeros_ip_firewall_nat" "mumble-tcp" {
+  action           = "dst-nat"
+  comment          = "Mumble"
+  chain            = "dstnat"
+  to_addresses     = "10.18.20.201"
+  to_ports         = "64738"
+  dst_address_list = "WAN"
+  dst_port         = "64738"
+  protocol         = "tcp"
+  place_before     = routeros_ip_firewall_nat.dnat_03.id
+}
+
+resource "routeros_ip_firewall_nat" "mumble-udp" {
+  action           = "dst-nat"
+  comment          = "Mumble"
+  chain            = "dstnat"
+  to_addresses     = "10.18.20.201"
+  to_ports         = "64738"
+  dst_address_list = "WAN"
+  dst_port         = "64738"
+  protocol         = "udp"
+  place_before     = routeros_ip_firewall_nat.dnat_03.id
+}
+
