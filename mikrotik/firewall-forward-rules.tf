@@ -103,13 +103,13 @@ resource "routeros_ip_firewall_filter" "home_to_immich" {
 }
 
 resource "routeros_ip_firewall_filter" "home_to_desktop" {
-  action           = "accept"
-  disabled         = false
-  chain            = "forward"
-  comment          = "Allow Max PC to desktop for STEAM library"
-  src_address      = routeros_ip_dns_record.max-pc.address
-  dst_address      = routeros_ip_dns_record.desktop.address
-  place_before     = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
+  action       = "accept"
+  disabled     = false
+  chain        = "forward"
+  comment      = "Allow Max PC to desktop for STEAM library"
+  src_address  = routeros_ip_dns_record.max-pc.address
+  dst_address  = routeros_ip_dns_record.desktop.address
+  place_before = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
 }
 
 resource "routeros_ip_firewall_filter" "home_to_home-assistant" {
@@ -143,12 +143,12 @@ resource "routeros_ip_firewall_filter" "traefik_to_pve" {
 }
 
 resource "routeros_ip_firewall_filter" "max-pc-to-mumble" {
-  action           = "accept"
-  disabled         = false
-  chain            = "forward"
-  comment          = "Allow MAX PC to Mumble"
-  src_address      = routeros_ip_dns_record.max-pc.address
-  dst_address      = "10.18.20.201"
+  action       = "accept"
+  disabled     = false
+  chain        = "forward"
+  comment      = "Allow MAX PC to Mumble"
+  src_address  = routeros_ip_dns_record.max-pc.address
+  dst_address  = "10.18.20.201"
   place_before = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
 }
 

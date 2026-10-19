@@ -12,12 +12,12 @@ resource "routeros_interface_wireguard" "wg0" {
 # Peer
 # =====================================
 resource "routeros_interface_wireguard_peer" "wg_peer" {
-  interface  = routeros_interface_wireguard.wg0.name
-  name = "Phone"
-  public_key = data.vault_generic_secret.routeros.data["wg_phone_pub"]
-  private_key = data.vault_generic_secret.routeros.data["wg_phone_priv"]
+  interface      = routeros_interface_wireguard.wg0.name
+  name           = "Phone"
+  public_key     = data.vault_generic_secret.routeros.data["wg_phone_pub"]
+  private_key    = data.vault_generic_secret.routeros.data["wg_phone_priv"]
   client_address = "10.10.0.2/30"
-  client_dns = "10.18.10.1"
+  client_dns     = "10.18.10.1"
   allowed_address = [
     "0.0.0.0/0",
   ]
@@ -39,7 +39,7 @@ resource "routeros_interface_ethernet" "ethernet" {
     "sfp-sfpplus1" = { comment = "Desktop10G" }
     "sfp-sfpplus2" = { comment = "N/A" }
   }
-  name = each.key
+  name         = each.key
   factory_name = each.key
-  comment = each.value.comment
+  comment      = each.value.comment
 }

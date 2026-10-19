@@ -20,7 +20,7 @@ resource "routeros_system_ntp_server" "ntp_server" {
 }
 
 resource "routeros_interface_ethernet_switch" "switch1" {
-  name = "switch1"
+  name             = "switch1"
   l3_hw_offloading = true
 }
 

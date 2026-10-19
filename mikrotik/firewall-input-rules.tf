@@ -42,7 +42,7 @@ resource "routeros_ip_firewall_filter" "drop_invalid" {
 
 resource "routeros_ip_firewall_filter" "drop_icmp" {
   action       = "drop"
-  disabled         = false
+  disabled     = false
   chain        = "input"
   comment      = "Drop ICMP from WAN"
   in_interface = "pppoe-out1"
@@ -52,7 +52,7 @@ resource "routeros_ip_firewall_filter" "drop_icmp" {
 
 resource "routeros_ip_firewall_filter" "default_drop" {
   action       = "drop"
-  disabled         = false
+  disabled     = false
   chain        = "input"
   comment      = "Default-Drop"
   in_interface = "pppoe-out1"
