@@ -8,7 +8,7 @@ resource "routeros_ip_firewall_filter" "allow_rfc1918" {
   chain            = "input"
   comment          = "Allow from rfc1918 addresses"
   src_address_list = "RFC1918"
-  place_before     = routeros_ip_firewall_filter.allow_wg.id
+  place_before     = routeros_ip_firewall_filter.drop_dev_to_rfc1918.id
 }
 
 resource "routeros_ip_firewall_filter" "allow_wg" {

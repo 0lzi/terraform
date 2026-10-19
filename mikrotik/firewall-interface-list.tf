@@ -7,10 +7,12 @@ resource "routeros_interface_list" "wan" {
 
 resource "routeros_interface_list_member" "wan_ether7" {
   interface = "vlan4000"
+  comment   = "WAN Interface"
   list      = routeros_interface_list.wan.name
 }
 resource "routeros_interface_list_member" "pppoe-out1" {
   interface = "pppoe-out1"
+  comment   = "WAN Interface"
   list      = routeros_interface_list.wan.name
 }
 
@@ -22,7 +24,7 @@ resource "routeros_interface_list" "lan" {
 }
 
 resource "routeros_interface_list_member" "interface" {
-   for_each = {
+  for_each = {
     "bridge"       = {}
     "ether1"       = {}
     "ether2"       = {}
@@ -43,21 +45,24 @@ resource "routeros_interface_list_member" "interface" {
 # MGMT interface
 # ========================================
 resource "routeros_interface_list" "mgmt" {
-  name = "MGMT"
+  name    = "MGMT"
+  comment = "MGMT"
 }
 
 resource "routeros_interface_list_member" "mgmt" {
   interface = "vlan10"
+  comment   = "MGMT"
   list      = routeros_interface_list.mgmt.name
 }
 # ========================================
 # Wireguard interface
 # ========================================
-resource "routeros_interface_list" "wg1" {
-  name = "WG1"
+resource "routeros_interface_list" "wg0" {
+  name = "WG0"
 }
 
-resource "routeros_interface_list_member" "wg1" {
-  interface = "wireguard1"
-  list      = routeros_interface_list.wg1.name
+resource "routeros_interface_list_member" "wg0" {
+  interface = "wg0"
+  comment   = "WG0"
+  list      = routeros_interface_list.wg0.name
 }

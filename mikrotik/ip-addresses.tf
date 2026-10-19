@@ -115,14 +115,14 @@ resource "routeros_ip_address" "guest" {
 # =====================================
 resource "routeros_ip_address" "wireguard" {
   address   = "10.10.0.1/24"
-  interface = "wireguard1"
+  interface = "wg0"
   network   = "10.10.0.0"
   comment   = "Wireguard"
 }
-
-#resource "routeros_ip_address" "wireguard-vrrp" {
+#
+# resource "routeros_ip_address" "wireguard-vrrp" {
 #  address   = "10.10.0.254/24"
-#  interface = "wireguard1"
+#  interface = "wg0"
 #  network   = "10.10.0.0"
 #  comment   = "wireguard-vrrp"
-#}
+# }

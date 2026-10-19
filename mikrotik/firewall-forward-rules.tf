@@ -149,7 +149,7 @@ resource "routeros_ip_firewall_filter" "max-pc-to-mumble" {
   comment          = "Allow MAX PC to Mumble"
   src_address      = routeros_ip_dns_record.max-pc.address
   dst_address      = "10.18.20.201"
-  place_before     = routeros_ip_firewall_filter.drop_prod_to_rfc1918.id
+  place_before = routeros_ip_firewall_filter.drop_home_to_rfc1918.id
 }
 
 resource "routeros_ip_firewall_filter" "drop_home_to_rfc1918" {
